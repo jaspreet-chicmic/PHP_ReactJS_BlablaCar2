@@ -1,0 +1,15 @@
+
+.forgetPasswordLinkDiv{
+    flex: 1 1 0%;
+}
+.forgetPasswordLinkContainer{
+    
+    color: rgb(0, 175, 245);
+    font-size: larger;
+    text-decoration: none;
+    
+}
+.forgetPasswordLink{
+    cursor: pointer;
+
+}

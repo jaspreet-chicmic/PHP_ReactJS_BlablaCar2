@@ -1,0 +1,10 @@
+.passwordFillingMessageDiv{
+    display: flex;
+    flex-direction: column;
+    padding: 16px 24px;
+    word-break: break-word;
+}
+.passwordFillingMessage{
+    font: 400 16px / 20px gt-eesti, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: rgb(111, 139, 144);
+}

@@ -1,0 +1,27 @@
+.publishRideLink{
+    display: flex;
+    margin:10px;
+    color: rgb(0, 175, 245);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+.publishRideImg{
+    height: 30px;
+    width: 30px;
+    margin-right:10px
+}
+
+.accessabilitie{
+  
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+.publishRideText{
+    margin-top:5px;
+    font-size: large;
+}
+.publishRideLink:hover{
+    background-color:rgb(237, 237, 237);
+  }

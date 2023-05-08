@@ -1,0 +1,13 @@
+.heading {
+    color: rgb(5, 70, 82);
+    text-align: center;
+    font: 500 40px / 42px gt-eesti, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bolder;
+
+    width:50%
+}
+.headingDiv{
+    display: flex;
+    justify-content: center;
+
+}

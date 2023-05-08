@@ -1,0 +1,75 @@
+
+.section-data {
+    position: relative;
+    box-sizing: border-box;
+    padding: 8px 24px;
+}
+
+.Input {
+    padding-right: 0px;
+    font-family: inherit;
+    margin-right: 48px;
+
+    appearance: none;
+    border: 0px;
+    border-radius: 16px;
+    background-color: transparent;
+    color: rgb(5, 70, 82);
+    flex: 1 1 0%;
+    font: 400 18px / 20px gt-eesti, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width: 100%;
+
+
+}
+.inputDiv {
+    height: 56px;
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    color: rgb(5, 70, 82);
+    background-color: rgb(237, 237, 237);
+    border-radius: 16px;
+    box-shadow: transparent 0px 0px 0px 3px;
+    transition: box-shadow 200ms ease-out 0s;
+    white-space: pre-line;
+}
+.inputDivInvalid{
+    height: 56px;
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    color: rgb(5, 70, 82);
+    background-color: rgb(237, 237, 237);
+    border-radius: 16px;
+    box-shadow: transparent 0px 0px 0px 3px;
+    transition: box-shadow 200ms ease-out 0s;
+    white-space: pre-line;
+    background: rgb(253, 216, 222);
+}
+.react-datepicker__input-container {
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+}
+
+.singup-date-picker {
+    border: none;
+    display: block;
+    margin-left: 10px;
+    background: none;
+    font-size: 1.3rem;
+    outline: none;
+    color: rgb(5, 70, 82);
+}
+
+.singup-date-picker-wrapper {
+    width: 100%;
+}
+.singup-date-picker-wrapper  .react-datepicker__calendar-icon {
+    right: 0px;
+    left: unset;
+}

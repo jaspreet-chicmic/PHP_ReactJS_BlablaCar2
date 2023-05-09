@@ -23,6 +23,7 @@ export default function CustomLinkListCreator({ profileViewLink = false, pic = f
     return (
         <>
             <ul className={!profileViewLink ? `links` : `profilelinks`} onClick={() => { handleClick() }} >
+
                 <li className={!profileViewLink ? `linksList` : `profilelinksList`} onClick={() => {
                     setDropDownListShow(false)
                     setDropDownIconPosition("dropDownIconDown")
@@ -32,7 +33,7 @@ export default function CustomLinkListCreator({ profileViewLink = false, pic = f
                             {linkText}
                         </span>
                         {pic && <div className="profilePicDiv">
-                            {profilePic ? <img className='profilePic' src={profilePic} alt=""></img> : <img className='profilePic' src={Images.profile} alt=""></img>}
+                            <img className='profilePic' src={profilePic || Images.profile} alt="" />
                         </div>}
                         <span className="linkIcon">
                             <img src={Images.rightArrow} alt=""></img>

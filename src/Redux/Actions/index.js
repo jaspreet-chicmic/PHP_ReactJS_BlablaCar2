@@ -38,6 +38,7 @@ export const registerData = {
     }
   },
   signup: (payload, successRegister, failedRegister) => {
+    console.log("sign up called");
     return {
       type: ACTION_STATES.SIGN_UP,
       payload,

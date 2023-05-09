@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux'
 import { sendEmailVerificationstatus } from '../../../Redux/Actions'
 
 export default function VerifyEmail() {
-  const userData=JSON.parse(localStorage.getItem("CurrentUser"))
+  // const userData=JSON.parse(localStorage.getItem("CurrentUser"))
+  const userData = {};
   const dispatch=useDispatch()
   const {emailVerificationId}=useParams()
   const handleSubmit=()=>{

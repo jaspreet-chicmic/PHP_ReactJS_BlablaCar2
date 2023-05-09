@@ -8,7 +8,8 @@ export default function NavContent({handleDropDownIconPosition=()=>{},dropDownIc
   const dispatch = useDispatch()
   const token=localStorage.getItem("token")
   useEffect(()=>{   dispatch(gettingProfilePic())},[token])
-  const userData=JSON.parse(localStorage.getItem(("CurrentUser")))
+  // const userData=JSON.parse(localStorage.getItem(("CurrentUser")))
+  const userData = {};
   const profilePic=useSelector(state=>state?.profilePicReducer)
   return (
     <div className='navContent'>

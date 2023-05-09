@@ -1,20 +1,37 @@
 import { takeLatest, put, all } from "redux-saga/effects";
 import axios from "axios";
 import { ACTION_STATES } from "../ActionStates";
-import { BASE_URL, URL_EXTENSIONS } from "../../Services/ROR_Api/Constants";
+import { BASE_URL, URL_EXTENSIONS } from "../../Services/PHP_Api/Constants";
 import { LOCALSTORAGE_KEY_NAME } from "../../Shared/Constants";
 import { savingProfilePic, setVehicleData, settingLoaderState } from "../Actions";
 
 function* postRegisterData(payload) {
     try {
         yield put(settingLoaderState(true))
-        const res = yield axios.post(BASE_URL + URL_EXTENSIONS.SIGN_UP, { user: payload?.payload });
-        
-        localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
-        localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.status?.data))
+        const { dob, password, first_name, last_name, email } = payload?.payload;
+        const initialPayload = {
+            dob,
+            f_name: first_name ,
+            l_name: last_name,
+            email,
+            password,
+        }
+        console.log(initialPayload, ": initialPayload")
+
+        const formData = new FormData();
+        for (let key in initialPayload) {
+            formData.append(key, initialPayload[key]);
+        }
+
+        const res = yield axios.post(BASE_URL + URL_EXTENSIONS.SIGN_UP, initialPayload);
+
+        // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
+        // localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.status?.data))
 
         yield (put(payload?.successRegister()))
         yield put(settingLoaderState(false))
+        console.log(res, "payload jp@gmail.com")
+        
     } catch (error) {
         yield put(settingLoaderState(false))
         // yield(put(payload?.failedRegister(error?.response?.data||"server not responding")))
@@ -25,12 +42,17 @@ function* postRegisterData(payload) {
 function* postLoginData(payload) {
     try {
         yield put(settingLoaderState(true))
+
+        
         const res = yield axios.post(
-            BASE_URL + URL_EXTENSIONS.SIGN_IN, { user: payload?.payload }
+            BASE_URL + URL_EXTENSIONS.SIGN_IN, {user: payload?.payload}
         );
+
+        
         payload?.successLogin()
-        localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
-        localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.status?.data))
+
+        // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
+        // localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.status?.data))
         yield put(settingLoaderState(false))
     } catch (error) {
         yield put(settingLoaderState(false))
@@ -227,13 +249,13 @@ function* sendingEmailVerificationLink(payload) {
         };
         yield put(settingLoaderState(true))
         const res = yield axios.post(
-            BASE_URL + URL_EXTENSIONS.EMAIL_VERIFICATION, payload?.payload,config
+            BASE_URL + URL_EXTENSIONS.EMAIL_VERIFICATION, payload?.payload, config
         );
         payload.successSend(res)
         yield put(settingLoaderState(false))
     } catch (error) {
         yield put(settingLoaderState(false))
-        payload.failedSend(error?.response?.data )
+        payload.failedSend(error?.response?.data)
         console.log(error, "error in sending email verification")
     }
 }
@@ -246,7 +268,7 @@ function* sendingEmailVerificationStatus(payload) {
         };
         yield put(settingLoaderState(true))
         yield axios.get(
-           `localhost:3000/account_activations/${payload?.id}/edit`, payload?.payload,config
+            `localhost:3000/account_activations/${payload?.id}/edit`, payload?.payload, config
         );
         yield put(settingLoaderState(false))
     } catch (error) {

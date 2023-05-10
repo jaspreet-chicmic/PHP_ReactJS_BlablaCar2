@@ -1,6 +1,12 @@
 import { ACTION_STATES } from "../ActionStates"
 
 export const registerData = {
+  logout: (payload)=>{
+    return{
+      type: ACTION_STATES.LOG_OUT,
+      payload
+    }
+  },
   email: (payload) => {
     return {
       type: ACTION_STATES.ADD_EMAIL,

@@ -5,7 +5,7 @@ import { Images } from '../../../Shared/Images'
 
 import { LOCALSTORAGE_KEY_NAME } from '../../../Shared/Constants'
 import { useDispatch } from 'react-redux'
-import { settingLoaderState } from '../../../Redux/Actions'
+import { registerData, settingLoaderState } from '../../../Redux/Actions'
 export default function CustomLinkListCreator({ profileViewLink = false, pic = false, route, linkText, setDropDownListShow = () => { }, setDropDownIconPosition = () => { }, handleSelect = () => { }, profilePic }) {
     const dispatch = useDispatch()
 
@@ -13,9 +13,12 @@ export default function CustomLinkListCreator({ profileViewLink = false, pic = f
     const handleClick = () => {
         handleSelect(linkText)
         if (linkText === "Logout") {
-            dispatch(settingLoaderState(true))
+            // dispatch(settingLoaderState(true))
+            console.log("logout")
+            dispatch(registerData?.logout())
             localStorage.clear(LOCALSTORAGE_KEY_NAME)
-            setTimeout(() => { dispatch(settingLoaderState(false)) }, [100])
+            // setTimeout(() => { dispatch(settingLoaderState(false)) }, [100])
+
         }
     }
 

@@ -5,18 +5,29 @@ import { BASE_URL, URL_EXTENSIONS } from "../../Services/PHP_Api/Constants";
 import { LOCALSTORAGE_KEY_NAME } from "../../Shared/Constants";
 import { savingProfilePic, setVehicleData, settingLoaderState } from "../Actions";
 
+
+function* logOut() {
+    try {
+        console.log("in logout")
+        yield put(settingLoaderState(true));
+        const res = yield axios.post(BASE_URL + URL_EXTENSIONS.LOG_OUT);
+        console.log(res,"in logout")
+        yield put(settingLoaderState(false))
+    } catch (error) {
+        yield put(settingLoaderState(false))
+    }
+}
 function* postRegisterData(payload) {
     try {
         yield put(settingLoaderState(true))
         const { dob, password, first_name, last_name, email } = payload?.payload;
         const initialPayload = {
             dob,
-            f_name: first_name ,
+            f_name: first_name,
             l_name: last_name,
             email,
             password,
         }
-        console.log(initialPayload, ": initialPayload")
 
         const formData = new FormData();
         for (let key in initialPayload) {
@@ -24,18 +35,18 @@ function* postRegisterData(payload) {
         }
 
         const res = yield axios.post(BASE_URL + URL_EXTENSIONS.SIGN_UP, initialPayload);
+        console.log(res, "res token and headers", res?.headers, res.success?.token, res.success?.f_name)
+        localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
+        localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.status?.data))
 
-        // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
-        // localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.status?.data))
-
-        yield (put(payload?.successRegister()))
+        payload?.successRegister();
         yield put(settingLoaderState(false))
         console.log(res, "payload jp@gmail.com")
-        
+
     } catch (error) {
+        console.log(error, payload,"errorInRegister")
         yield put(settingLoaderState(false))
-        // yield(put(payload?.failedRegister(error?.response?.data||"server not responding")))
-        console.log(error, "errorInRegister")
+        payload?.failedRegister(error?.response?.data || "server not responding")
     }
 }
 // successLogin,failedLogin
@@ -43,12 +54,25 @@ function* postLoginData(payload) {
     try {
         yield put(settingLoaderState(true))
 
-        
-        const res = yield axios.post(
-            BASE_URL + URL_EXTENSIONS.SIGN_IN, {user: payload?.payload}
-        );
+        const { password, email } = payload?.payload;
+        const initialPayload = {
+            email,
+            password,
+        }
 
-        
+        const formData = new FormData();
+        for (let key in initialPayload) {
+            formData.append(key, initialPayload[key]);
+        }
+
+        const res = yield axios.post(
+            BASE_URL + URL_EXTENSIONS.SIGN_IN, formData
+        );
+        console.log(res, "res token and headers", res?.headers, res.success?.token)//, res.data?.data?.
+        localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
+        localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.status?.data))
+
+
         payload?.successLogin()
 
         // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
@@ -273,7 +297,7 @@ function* sendingEmailVerificationStatus(payload) {
         yield put(settingLoaderState(false))
     } catch (error) {
         yield put(settingLoaderState(false))
-        payload.failedSend(error?.response?.data || "server not responding")
+        // payload.failedSend(error?.response?.data || "server not responding")
         console.log(error, "error in sending email verification")
     }
 }
@@ -282,6 +306,7 @@ function* sendingEmailVerificationStatus(payload) {
 function* Saga() {
     yield all([
         takeLatest(ACTION_STATES.SIGN_UP, postRegisterData),
+        takeLatest(ACTION_STATES.LOG_OUT, logOut),
         takeLatest(ACTION_STATES.SIGN_IN, postLoginData),
         takeLatest(ACTION_STATES.SEND_FORGET_PASSWORD_MAIL, sendPasswordResetMailData),
         takeLatest(ACTION_STATES.SEND_RESET_PASSWORD, sendResetPassword),

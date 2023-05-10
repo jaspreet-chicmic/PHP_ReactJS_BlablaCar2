@@ -11,7 +11,7 @@ export default function Home() {
         <div className='foreGroundContent'>
           <div className='foreGroundHeading'>
             <h1 className='homeLabel'>Your pick of rides at low prices</h1>
-            {/* <SelectTrip/> */}
+            <SelectTrip/>
           </div>
         </div>
       </div>

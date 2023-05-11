@@ -35,7 +35,10 @@ export const registerReducer = (state = initialStateForRegister, action) => {
             return {
                 ...state, password: action?.payload
             }
-
+        case ACTION_STATES.CHECK_IF_EMAIL_EXISTS_IN_DB:
+            return {
+                ...state, emailExists: action?.payload
+            }
         default:
             return state
     }

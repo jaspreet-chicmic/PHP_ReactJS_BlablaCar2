@@ -172,6 +172,13 @@ export const sendEmailVerificationLink = (payload, succesSend, failedSend) => {
   }
 }
 
+export const emailVerification = (payload) =>{
+  return {
+    type: ACTION_STATES.CHECK_IF_EMAIL_EXISTS_IN_DB,
+    payload
+  }
+}
+
 export const sendEmailVerificationstatus = (payload, id) => {
 
   return {

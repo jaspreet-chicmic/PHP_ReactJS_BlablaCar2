@@ -263,6 +263,34 @@ function* updateVehicleDetails(payload) {
     }
 }
 
+function* emailVerificationCheck(payload) {
+    try {
+        // const token = localStorage.getItem("token")
+        // const config = {
+        //     headers: { 'Authorization': token }
+        // };
+        yield put(settingLoaderState(true))
+        
+
+        const initialPayload = {
+            email:payload,
+        }
+
+        const formData = new FormData();
+        for (let key in initialPayload) {
+            formData.append(key, initialPayload[key]);
+        }
+
+        const res = yield axios.put(BASE_URL + URL_EXTENSIONS.EMAIL,formData);
+        console.log(res, "email api response");
+        
+        // payload.navigateToProfile(res)
+        yield put(settingLoaderState(false))
+    } catch (error) {
+        yield put(settingLoaderState(false))
+        console.log(error, "error in adding vehicle")
+    }
+}
 
 
 function* sendingEmailVerificationLink(payload) {
@@ -308,6 +336,7 @@ function* Saga() {
         takeLatest(ACTION_STATES.SIGN_UP, postRegisterData),
         takeLatest(ACTION_STATES.LOG_OUT, logOut),
         takeLatest(ACTION_STATES.SIGN_IN, postLoginData),
+        takeLatest(ACTION_STATES.CHECK_IF_EMAIL_EXISTS_IN_DB, emailVerificationCheck),
         takeLatest(ACTION_STATES.SEND_FORGET_PASSWORD_MAIL, sendPasswordResetMailData),
         takeLatest(ACTION_STATES.SEND_RESET_PASSWORD, sendResetPassword),
         takeLatest(ACTION_STATES.UPDATE_PROFILE, updateProfileData),

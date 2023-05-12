@@ -11,7 +11,7 @@ function* logOut() {
         console.log("in logout")
         yield put(settingLoaderState(true));
         const res = yield axios.post(BASE_URL + URL_EXTENSIONS.LOG_OUT);
-        console.log(res,"in logout")
+        console.log(res, "in logout")
         yield put(settingLoaderState(false))
     } catch (error) {
         yield put(settingLoaderState(false))
@@ -34,7 +34,11 @@ function* postRegisterData(payload) {
             formData.append(key, initialPayload[key]);
         }
 
-        const res = yield axios.post(BASE_URL + URL_EXTENSIONS.SIGN_UP, initialPayload);
+        const res = yield axios.post(BASE_URL + URL_EXTENSIONS.SIGN_UP, initialPayload,{
+            headers: {
+                "ngrok-skip-browser-warning": "69420"
+            }
+        });
         console.log(res, "res token and headers", res?.headers, res.success?.token, res.success?.f_name)
         localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
         localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.status?.data))
@@ -44,7 +48,7 @@ function* postRegisterData(payload) {
         console.log(res, "payload jp@gmail.com")
 
     } catch (error) {
-        console.log(error, payload,"errorInRegister")
+        console.log(error, payload, "errorInRegister")
         yield put(settingLoaderState(false))
         payload?.failedRegister(error?.response?.data || "server not responding")
     }
@@ -66,7 +70,11 @@ function* postLoginData(payload) {
         }
 
         const res = yield axios.post(
-            BASE_URL + URL_EXTENSIONS.SIGN_IN, formData
+            BASE_URL + URL_EXTENSIONS.SIGN_IN, formData, {
+            headers: {
+                "ngrok-skip-browser-warning": "69420"
+            }
+        }
         );
         console.log(res, "res token and headers", res?.headers, res.success?.token)//, res.data?.data?.
         localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
@@ -270,10 +278,10 @@ function* emailVerificationCheck(payload) {
         //     headers: { 'Authorization': token }
         // };
         yield put(settingLoaderState(true))
-        
+
 
         const initialPayload = {
-            email:payload,
+            email: payload,
         }
 
         const formData = new FormData();
@@ -281,9 +289,9 @@ function* emailVerificationCheck(payload) {
             formData.append(key, initialPayload[key]);
         }
 
-        const res = yield axios.put(BASE_URL + URL_EXTENSIONS.EMAIL,formData);
+        const res = yield axios.put(BASE_URL + URL_EXTENSIONS.EMAIL, formData);
         console.log(res, "email api response");
-        
+
         // payload.navigateToProfile(res)
         yield put(settingLoaderState(false))
     } catch (error) {

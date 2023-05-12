@@ -1,0 +1,74 @@
+
+.section-data {
+    position: relative;
+    box-sizing: border-box;
+    padding: 8px 24px;
+}
+
+.Input {
+    padding-right: 0px;
+    font-family: inherit;
+    margin-right: 48px;
+
+    appearance: none;
+    border: 0px;
+    border-radius: 16px;
+    background-color: transparent;
+    color: rgb(5, 70, 82);
+    flex: 1 1 0%;
+    font: 400 18px / 20px gt-eesti, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  
+    padding: 0px 16px;
+    height: 56px;
+
+}
+.inputDiv {
+    height: 56px;
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    color: rgb(5, 70, 82);
+    background-color: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: transparent 0px 0px 0px 3px;
+    transition: box-shadow 200ms ease-out 0s;
+    white-space: pre-line;
+}
+.inputDivInvalid{
+    height: 56px;
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    color: rgb(5, 70, 82);
+    background-color: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: transparent 0px 0px 0px 3px;
+    transition: box-shadow 200ms ease-out 0s;
+    white-space: pre-line;
+    background: rgb(253, 216, 222);
+}
+
+
+.showPasswordIcon{
+  
+        height:25px;
+        width:25px;
+
+        padding-right: 10px;
+        opacity: 50%;
+        cursor: pointer;
+    
+}
+.closePasswordIcon{
+    height:13px;
+    width:18px;
+    content:objectfit;
+    padding-right: 10px;
+    margin-right: 3px;
+    opacity: 50%;
+    cursor: pointer;
+}

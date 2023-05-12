@@ -3,14 +3,15 @@ import axios from "axios";
 import { ACTION_STATES } from "../ActionStates";
 import { BASE_URL, URL_EXTENSIONS } from "../../Services/PHP_Api/Constants";
 import { LOCALSTORAGE_KEY_NAME } from "../../Shared/Constants";
-import { savingProfilePic, setVehicleData, settingLoaderState } from "../Actions";
+import { profile, savingProfilePic, setVehicleData, settingLoaderState, updateProfile } from "../Actions";
 
 
 function* logOut() {
     try {
         console.log("in logout")
         yield put(settingLoaderState(true));
-        const res = yield axios.post(BASE_URL + URL_EXTENSIONS.LOG_OUT);
+        // const res = yield axios.post(BASE_URL + URL_EXTENSIONS.LOG_OUT);
+        const res = "";
         console.log(res, "in logout")
         yield put(settingLoaderState(false))
     } catch (error) {
@@ -34,14 +35,10 @@ function* postRegisterData(payload) {
             formData.append(key, initialPayload[key]);
         }
 
-        const res = yield axios.post(BASE_URL + URL_EXTENSIONS.SIGN_UP, initialPayload,{
-            headers: {
-                "ngrok-skip-browser-warning": "69420"
-            }
-        });
+        const res = yield axios.post(BASE_URL + URL_EXTENSIONS.SIGN_UP, initialPayload);
         console.log(res, "res token and headers", res?.headers, res.success?.token, res.success?.f_name)
-        localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
-        localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.status?.data))
+        // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res))
+        // localStorage.setItem("CurrentUser", JSON.stringify(res?.data))
 
         payload?.successRegister();
         yield put(settingLoaderState(false))
@@ -70,16 +67,12 @@ function* postLoginData(payload) {
         }
 
         const res = yield axios.post(
-            BASE_URL + URL_EXTENSIONS.SIGN_IN, formData, {
-            headers: {
-                "ngrok-skip-browser-warning": "69420"
-            }
-        }
+            BASE_URL + URL_EXTENSIONS.SIGN_IN, formData
         );
-        console.log(res, "res token and headers", res?.headers, res.success?.token)//, res.data?.data?.
-        localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
-        localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.status?.data))
-
+        console.log(res, "res token and headers", res?.data?.token, res?.data?.detail)//, res.data?.data?.
+        yield put(profile.saveProfile(res?.data?.detail))
+        localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.data?.token))
+        // localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.detail))
 
         payload?.successLogin()
 

@@ -1,8 +1,8 @@
 import { ACTION_STATES } from "../ActionStates"
 
 export const registerData = {
-  logout: (payload)=>{
-    return{
+  logout: (payload) => {
+    return {
       type: ACTION_STATES.LOG_OUT,
       payload
     }
@@ -53,6 +53,20 @@ export const registerData = {
     }
   },
 
+}
+
+export const profile = {
+  saveProfile: (payload) => {
+    return {
+      type: ACTION_STATES.SAVE_PROFILE,
+      payload,
+    }
+  },
+  saveToken: (payload) => {
+    return {
+      type: ACTION_STATES.SAVE_PROFILE_TOKEN
+    }
+  }
 }
 export const loginData = {
   signin: (payload, successLogin, failedLogin) => {
@@ -172,7 +186,7 @@ export const sendEmailVerificationLink = (payload, succesSend, failedSend) => {
   }
 }
 
-export const emailVerification = (payload) =>{
+export const emailVerification = (payload) => {
   return {
     type: ACTION_STATES.CHECK_IF_EMAIL_EXISTS_IN_DB,
     payload

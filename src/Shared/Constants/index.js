@@ -1,5 +1,5 @@
 export const STRINGS={
-    BIRTHDATE_HEADING:"What is your date?",
+    BIRTHDATE_HEADING:"What is your date of birth?",
     EMAIL_HEADING:"What is your email?",
     NAME_HEADING:"What is your name?",
     GENDER_SELECT_HEADING:"How would you like to be addressed?",

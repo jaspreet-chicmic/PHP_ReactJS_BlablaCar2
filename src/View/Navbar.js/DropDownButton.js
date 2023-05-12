@@ -13,6 +13,7 @@ export default function NavContent({handleDropDownIconPosition=()=>{},dropDownIc
   const profilePic=useSelector(state=>state?.profilePicReducer)
   return (
     <div className='navContent'>
+    
     <button className='navDropDown' onClick={() => { handleDropDownIconPosition() }}>
     {userData&& <label className='userName'>{userData?.first_name}</label>}
         <div className='profileOptions'>

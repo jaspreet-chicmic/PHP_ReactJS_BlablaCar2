@@ -15,6 +15,12 @@ export const saveUserDataReducer = (state = initialUserDataState, action) => {
             return {
                 ...state, ...action?.payload
             }
+        case ACTION_STATES.SAVE_PROFILE_TOKEN:
+            return {
+                ...state, ...action?.payload
+            }
+            case ACTION_STATES.CLEAR_PAYLOAD:
+                return { ...initialUserDataState}
         default:
             return state
     }

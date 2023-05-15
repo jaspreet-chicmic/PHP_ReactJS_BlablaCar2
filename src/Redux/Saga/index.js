@@ -1,10 +1,41 @@
 import { takeLatest, put, all } from "redux-saga/effects";
 import axios from "axios";
 import { ACTION_STATES } from "../ActionStates";
-import { BASE_URL, URL_EXTENSIONS } from "../../Services/PHP_Api/Constants";
+import { BASE_URL, STATUS_MESSAGE, URL_EXTENSIONS } from "../../Services/Java_Api/Constants";
 import { LOCALSTORAGE_KEY_NAME } from "../../Shared/Constants";
 import { profile, savingProfilePic, setVehicleData, settingLoaderState, updateProfile } from "../Actions";
 
+
+function* emailVerificationCheck(email) {
+    try {
+        // const token = localStorage.getItem("token")
+        // const config = {
+        //     headers: { 'Authorization': token }
+        // };
+        yield put(settingLoaderState(true))
+
+        // const formData = new FormData();
+        // formData.append("email", email);
+
+        console.log("email api b4 response", email);
+        const res = yield axios.post(BASE_URL + URL_EXTENSIONS.EMAIL, email);
+        // yield put(settingLoaderState(false))
+        console.log(res, "email api response");
+        yield put(settingLoaderState(false))
+        // if (res?.status && res?.status === STATUS_MESSAGE.FORBIDDEN) {
+        //     email.navigateToProfile(res)
+        //     yield put({
+        //         type: ACTION_STATES.CHECK_IF_EMAIL_EXISTS_IN_DB,
+        //         payload: STATUS_MESSAGE.FORBIDDEN
+        //     })
+
+        //     throw new Error("Email Already Exists!")
+        // }
+    } catch (error) {
+        yield put(settingLoaderState(false))
+        console.log(error, "error in adding email")
+    }
+}
 
 function* logOut() {
     try {
@@ -21,13 +52,14 @@ function* logOut() {
 function* postRegisterData(payload) {
     try {
         yield put(settingLoaderState(true))
-        const { dob, password, first_name, last_name, email } = payload?.payload;
+        const { dob, password, nameTitle, first_name, last_name, email } = payload?.payload;
         const initialPayload = {
             dob,
             f_name: first_name,
             l_name: last_name,
             email,
             password,
+            nameTitle,
         }
 
         const formData = new FormData();
@@ -73,7 +105,7 @@ function* postLoginData(payload) {
         yield put(profile.saveProfile(res?.data?.detail))
         localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.data?.token))
         // localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.detail))
-
+        yield put(profile.saveToken(res?.data?.token))
         payload?.successLogin()
 
         // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
@@ -264,34 +296,6 @@ function* updateVehicleDetails(payload) {
     }
 }
 
-function* emailVerificationCheck(payload) {
-    try {
-        // const token = localStorage.getItem("token")
-        // const config = {
-        //     headers: { 'Authorization': token }
-        // };
-        yield put(settingLoaderState(true))
-
-
-        const initialPayload = {
-            email: payload,
-        }
-
-        const formData = new FormData();
-        for (let key in initialPayload) {
-            formData.append(key, initialPayload[key]);
-        }
-
-        const res = yield axios.put(BASE_URL + URL_EXTENSIONS.EMAIL, formData);
-        console.log(res, "email api response");
-
-        // payload.navigateToProfile(res)
-        yield put(settingLoaderState(false))
-    } catch (error) {
-        yield put(settingLoaderState(false))
-        console.log(error, "error in adding vehicle")
-    }
-}
 
 
 function* sendingEmailVerificationLink(payload) {
@@ -323,6 +327,7 @@ function* sendingEmailVerificationStatus(payload) {
         yield axios.get(
             `localhost:3000/account_activations/${payload?.id}/edit`, payload?.payload, config
         );
+        // console.log(res,"after email verifn")
         yield put(settingLoaderState(false))
     } catch (error) {
         yield put(settingLoaderState(false))

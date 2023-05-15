@@ -8,13 +8,14 @@ import { STRINGS, VALIDATION_MESSAGES } from '../../../Shared/Constants'
 import { isValidEmail } from '../../../Shared/Utilities'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerData } from '../../../Redux/Actions'
+import { STATUS_MESSAGE } from '../../../Services/Java_Api/Constants'
 export default function EmailInput() {
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
     const [email, setEmail] = useState("")
     const [validationMessage, setValidationMessage] = useState()
     const navigate = useNavigate()
-    const registerDataState = useSelector((state)=>state.registerData)
- 
+    const userSavedData = useSelector((state) => state.registerReducer)
+
     const handleSubmit = () => {
         if (!email.trim()) {
             setValidationMessage(VALIDATION_MESSAGES?.EMAIL?.EMPTY)
@@ -24,11 +25,17 @@ export default function EmailInput() {
         }
         else {
             //call api
-            // dispatch(registerData?.emailVerification(email))
-            // registerDataState.exists ? dispatch(registerData?.email(email))
-            // : navigate("/login")
-            dispatch(registerData?.email(email))
-            navigate("/register/name")
+            dispatch(registerData?.emailVerification(email))
+            if (userSavedData?.payload === STATUS_MESSAGE.FORBIDDEN)
+                navigate("/login")
+            else {
+                dispatch(registerData?.email(email))
+                navigate("/register/name")
+            }
+            // dispatch(registerData?.email(email))
+            // registerDataState?.emailStatus !== "exists" && 
+            console.log("email status", userSavedData)
+
         }
     }
 

@@ -7,11 +7,12 @@ import ContinueButton from '../../../Atoms/ContinueButton'
 import { VALIDATION_MESSAGES } from '../../../../Shared/Constants'
 import { isValidEmail, isValidName } from '../../../../Shared/Utilities'
 import DateInput from '../../../Atoms/DateInput'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateProfile } from '../../../../Redux/Actions'
 import ValidationText from '../../../Atoms/ValidationText'
 import { useNavigate } from 'react-router-dom'
 export default function EditPersonalDetails({ show, setShow = () => { } }) {
+    const select = useSelector(state=>state.saveUserDataReducer)
     const userData = JSON.parse(localStorage.getItem("CurrentUser"))
     const [firstName, setFirstName] = useState(userData?.first_name || "")
     const [lastName, setLastName] = useState(userData?.last_name || "")
@@ -55,12 +56,12 @@ export default function EditPersonalDetails({ show, setShow = () => { } }) {
            setShow(false)
         }
     }
+    console.log(select," saveUserDataReducer")
     return (
         <ModalComponent show={show} setShow={setShow}>
             <Header heading={"Personal details"} />
             <div className='section-content'>
 
-        
             <div className='FillingMessageDiv'>
                 <span className='FillingMessage'>First Name</span>
             </div>
@@ -79,7 +80,7 @@ export default function EditPersonalDetails({ show, setShow = () => { } }) {
             <div className='FillingMessageDiv'>
                 <span className='FillingMessage'>Date of Birth</span>
             </div>
-            <DateInput startDate={dob} setStartDate={setDob} />
+            {/* <DateInput startDate={dob} setStartDate={setDob} /> */}
             <div className='FillingMessageDiv'>
                 <span className='FillingMessage'>Email Address</span>
             </div>

@@ -1,4 +1,4 @@
-export const BASE_URL="https://funny-numbers-grow.loca.lt/"
+export const BASE_URL="https://short-cameras-smell.loca.lt/"
 export const URL_EXTENSIONS={
     SIGN_UP:"api/signup",
     SIGN_IN:"api/login",

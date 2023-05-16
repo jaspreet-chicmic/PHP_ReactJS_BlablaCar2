@@ -1,16 +1,17 @@
-import { takeLatest, put, all } from "redux-saga/effects";
+import { takeLatest, put, all, select } from "redux-saga/effects";
 import axios from "axios";
 import { ACTION_STATES } from "../ActionStates";
 import { BASE_URL, STATUS_MESSAGE, URL_EXTENSIONS } from "../../Services/Java_Api/Constants";
 import { LOCALSTORAGE_KEY_NAME } from "../../Shared/Constants";
 import { profile, savingProfilePic, setVehicleData, settingLoaderState, updateProfile } from "../Actions";
+import { useSelector } from "react-redux";
 
 
 function* emailVerificationCheck(email) {
     try {
         // const token = localStorage.getItem("token")
         // const config = {
-        //     headers: { 'Authorization': token }
+        //     headers: { "Authorization" : "Bearer {tokenValue}"}
         // };
         yield put(settingLoaderState(true))
 
@@ -41,8 +42,19 @@ function* logOut() {
     try {
         console.log("in logout")
         yield put(settingLoaderState(true));
-        // const res = yield axios.post(BASE_URL + URL_EXTENSIONS.LOG_OUT);
-        const res = "";
+        const profileRed = yield select((state)=>{
+            console.log(state,"state In logout")
+            return state.saveUserDataReducer
+        });
+        const authVal = "Bearer " + profileRed.token
+        console.log(authVal," authVal")
+        const config = {
+            headers: { "Authorization" : authVal}
+        };
+        const res = yield axios.post({
+            url: BASE_URL + URL_EXTENSIONS.LOG_OUT,
+            config
+        });
         console.log(res, "in logout")
         yield put(settingLoaderState(false))
     } catch (error) {
@@ -105,7 +117,8 @@ function* postLoginData(payload) {
         yield put(profile.saveProfile(res?.data?.detail))
         localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.data?.token))
         // localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.detail))
-        yield put(profile.saveToken(res?.data?.token))
+        console.log("token ",res?.data?.token)
+        yield put(profile.saveToken({"token":res?.data?.token}))
         payload?.successLogin()
 
         // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))

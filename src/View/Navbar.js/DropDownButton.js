@@ -7,7 +7,8 @@ import { gettingProfilePic } from '../../Redux/Actions'
 export default function NavContent({handleDropDownIconPosition=()=>{},dropDownIconPosition}) {
   const profile = useSelector((state)=>state.saveUserDataReducer);
   const dispatch = useDispatch()
-  const token=localStorage.getItem("token")
+  const userDataRed = useSelector(state=>state.saveUserDataReducer)
+  const token=userDataRed.token;
   // useEffect(()=>{   dispatch(gettingProfilePic())},[token])
   // const userData=JSON.parse(localStorage.getItem(("CurrentUser")))
   const profilePic=useSelector(state=>state?.profilePicReducer)

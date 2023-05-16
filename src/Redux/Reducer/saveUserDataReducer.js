@@ -3,11 +3,12 @@ import { ACTION_STATES } from "../ActionStates";
 const initialUserDataState= {
     "email": "",
     "password": "",
-    "first_name": "",
-    "last_name": "",
+    "f_name": "",
+    "l_name": "",
     "dob": "",
-    "title": "",
-    "phone_number": ""
+    "title": "",    
+    "phone_number": "",
+    "token":"",
 }
 export const saveUserDataReducer = (state = initialUserDataState, action) => {
     switch (action?.type) {

@@ -1,4 +1,4 @@
-export const BASE_URL="https://kind-crabs-train.loca.lt/"
+export const BASE_URL="https://284f-112-196-113-2.ngrok-free.app/"
 export const URL_EXTENSIONS={
     SIGN_UP:"api/signup",
     SIGN_IN:"api/login",

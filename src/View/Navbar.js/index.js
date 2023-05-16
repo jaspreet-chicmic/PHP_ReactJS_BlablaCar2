@@ -6,10 +6,13 @@ import DropDownListViewer from '../../Components/Atoms/DropDownListViewer'
 import NavContent from './DropDownButton'
 
 import Linkto from '../../Components/Atoms/LinkTo'
+import { useSelector } from 'react-redux'
 export default function Navbar() {
     const navigate = useNavigate()
     const currentPath = useLocation()
-    const token = localStorage.getItem("token")
+    const userDataRed = useSelector(state=>state.saveUserDataReducer)
+    const token = userDataRed.token;
+    console.log(token, "token")
     const [dropDownIconPosition, setDropDownIconPosition] = useState("dropDownIconDown")
     const [dropDownListShow, setDropDownListShow] = useState(false)
     const dropDownListDataForGuest = [{ linkText: "Log in ", route: "/login" }, { linkText: "Sign up", route: "/register" }]

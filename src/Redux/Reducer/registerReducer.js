@@ -39,6 +39,10 @@ export const registerReducer = (state = initialStateForRegister, action) => {
             return {
                 ...state, emailStatus: action?.payload
             }
+        case ACTION_STATES.CLEAR_PAYLOAD:
+            return {
+                ...initialStateForRegister
+            }
         default:
             return state
     }

@@ -6,6 +6,7 @@ import {  Routes, Route } from "react-router-dom";
 import { AUTH_ROUTES } from "./AuthRoutes";
 import { PUBLIC_ROUTES } from "./PublicRoute";
 import { PRIVATE_ROUTES } from "./PrivateRoutes";
+import { useSelector } from "react-redux";
 
 
 
@@ -43,9 +44,9 @@ const AuthenticatedRoutes = () => {
 };
 
 const RootRouter = () => {
-  const token =(localStorage.getItem("token"))
-
-
+  // const token =(localStorage.getItem("token"))
+  const userDataRed = useSelector(state=>state.saveUserDataReducer)
+  const token=userDataRed.token;
   return (
   
   <>

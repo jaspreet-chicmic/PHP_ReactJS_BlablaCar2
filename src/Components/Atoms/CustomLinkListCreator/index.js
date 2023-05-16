@@ -10,7 +10,7 @@ import { saveUserDataReducer } from '../../../Redux/Reducer/saveUserDataReducer'
 
 export default function CustomLinkListCreator({ profileViewLink = false, pic = false, route, linkText, setDropDownListShow = () => { }, setDropDownIconPosition = () => { }, handleSelect = () => { }, profilePic }) {
     const dispatch = useDispatch()
-    // const profile = useSelector((state)=>state.saveUserDataReducer);
+    const profileRed = useSelector((state)=>state.saveUserDataReducer);
 
     const handleClick = () => {
         handleSelect(linkText)
@@ -18,9 +18,10 @@ export default function CustomLinkListCreator({ profileViewLink = false, pic = f
             // dispatch(settingLoaderState(true))
             console.log("in logout")
             // dispatch(profile?.logout())
-            dispatch(profile?.logout())
             dispatch(registerData?.logout())
-            localStorage.clear(LOCALSTORAGE_KEY_NAME)
+            dispatch(registerData?.clearPayload())
+            dispatch(profile?.logout())
+            // localStorage.clear(LOCALSTORAGE_KEY_NAME)
             // setTimeout(() => { dispatch(settingLoaderState(false)) }, [100])
         }
     }
@@ -36,7 +37,7 @@ export default function CustomLinkListCreator({ profileViewLink = false, pic = f
                 }}>
                     <Link className={!profileViewLink ? `linkTo` : `profilelinkTo`} to={route}>
                         <span className={!profileViewLink ? `linkText` : `profilelinkText`}>
-                            {linkText || profile?.f_name }
+                            {linkText || profileRed?.f_name }
                         </span>
                         {pic && <div className="profilePicDiv">
                             <img className='profilePic' src={profilePic || Images.profile} alt="" />

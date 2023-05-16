@@ -7,6 +7,13 @@ export const registerData = {
       payload
     }
   },
+  
+  clearPayload:(payload)=>{
+    return {
+      type: ACTION_STATES.CLEAR_PAYLOAD,
+      payload
+    }
+  },
   logout: (payload) => {
     return {
       type: ACTION_STATES.LOG_OUT,

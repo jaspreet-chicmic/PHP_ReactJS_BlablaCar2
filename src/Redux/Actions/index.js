@@ -1,6 +1,12 @@
 import { ACTION_STATES } from "../ActionStates"
 
 export const registerData = {
+  emailVerification : (payload) => {
+    return {
+      type: ACTION_STATES.CHECK_IF_EMAIL_EXISTS_IN_DB,
+      payload
+    }
+  },
   logout: (payload) => {
     return {
       type: ACTION_STATES.LOG_OUT,
@@ -64,9 +70,16 @@ export const profile = {
   },
   saveToken: (payload) => {
     return {
-      type: ACTION_STATES.SAVE_PROFILE_TOKEN
+      type: ACTION_STATES.SAVE_PROFILE_TOKEN,
+      payload
     }
-  }
+  },
+  logout: (payload)=>{
+    return {
+      type: ACTION_STATES.CLEAR_PAYLOAD,
+      payload
+    }
+  },
 }
 export const loginData = {
   signin: (payload, successLogin, failedLogin) => {
@@ -183,13 +196,6 @@ export const sendEmailVerificationLink = (payload, succesSend, failedSend) => {
     payload,
     succesSend,
     failedSend
-  }
-}
-
-export const emailVerification = (payload) => {
-  return {
-    type: ACTION_STATES.CHECK_IF_EMAIL_EXISTS_IN_DB,
-    payload
   }
 }
 

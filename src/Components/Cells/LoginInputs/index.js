@@ -23,7 +23,7 @@ export default function LoginInputs() {
     const navigate=useNavigate()
 
     const successLogin=()=>{
-        dispatch(gettingProfilePic({}))
+        // dispatch(gettingProfilePic({}))
         navigate("/")
     }
     const failedLogin=(res)=>{
@@ -47,7 +47,6 @@ export default function LoginInputs() {
         else {
                
             dispatch(loginData?.signin({email:email,password:password},successLogin,failedLogin))
-            
         }
     }
     return (

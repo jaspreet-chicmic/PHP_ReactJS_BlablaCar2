@@ -86,7 +86,7 @@ export const profile = {
       type: ACTION_STATES.CLEAR_PAYLOAD,
       payload
     }
-  },
+  }
 }
 export const loginData = {
   signin: (payload, successLogin, failedLogin) => {
@@ -96,6 +96,7 @@ export const loginData = {
       successLogin,
       failedLogin,
     }
+    
   }
 }
 

@@ -14,7 +14,14 @@ export const STRINGS={
     VERIFY_EMAIL:"Click to verify Email"
 }
 
-
+export const PLACEHOLDERS={
+    FIRST_NAME:"First Name",
+    LAST_NAME: "Last Name",
+    EMAIL:"Email",
+    DOB: "Date of Birth",
+    GENDER: "Gender",
+    EMAIL_ADDRESS: "Email Address"
+}
 export const REGEX={
     email:"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",
     name: "[a-zA-Z][a-zA-Z]+",
@@ -78,6 +85,7 @@ export const VALIDATION_MESSAGES={
       
     },
 }
+
 
 
 export const LOCALSTORAGE_KEY_NAME="token"

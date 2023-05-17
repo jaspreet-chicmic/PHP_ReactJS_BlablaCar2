@@ -48,14 +48,20 @@ function* logOut() {
         });
         const authVal = "Bearer " + profileRed.token
         console.log(authVal," authVal")
-        const config = {
-            headers: { "Authorization" : authVal}
-        };
-        const res = yield axios.post({
-            url: BASE_URL + URL_EXTENSIONS.LOG_OUT,
-            config
-        });
-        console.log(res, "in logout")
+        const headers = {
+            "ngrok-skip-browser-warning": "69420",
+            'Content-Type': 'application/json', // Example header
+            'Authorization': authVal, // Example authorization header
+          };
+        const res = yield axios.post(
+            BASE_URL + URL_EXTENSIONS.LOG_OUT,"",
+            {headers}
+        );
+        // const res2 = yield axios.post(
+        //     BASE_URL + URL_EXTENSIONS.LOG_OUT,"",
+        //     {headers}
+        // );
+        // console.log(res2, "in logout")
         yield put(settingLoaderState(false))
     } catch (error) {
         yield put(settingLoaderState(false))
@@ -198,13 +204,17 @@ function* gettingProfilePic() {
 
 
 
-function* updateProfileData(payload) {
+function* updateProfileData(action) {
     try {
-        const token = localStorage.getItem("token")
-        const config = { headers: { 'Authorization': token } };
+        const profileRed = yield select((state)=>{
+            console.log(state,"state In logout")
+            return state.saveUserDataReducer
+        });
+        const token= profileRed.token;
+        const config = { headers: { 'Authorization': "Bearer "+token } };
         yield put(settingLoaderState(true))
-        const res = yield axios.put(
-            BASE_URL + URL_EXTENSIONS.SIGN_UP, { user: payload?.payload }, config
+        const res = yield axios.post(
+            BASE_URL + URL_EXTENSIONS.UPDATE_PROFILE, { user: action?.payload }, config
         );
         console.log(res?.data?.status?.data, "profileUpdated")
         // localStorage.setItem("CurrentUser",JSON.stringify(res?.data?.status?.data))

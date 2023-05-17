@@ -19,6 +19,7 @@ export default function CustomLinkListCreator({ profileViewLink = false, pic = f
             console.log("in logout")
             // dispatch(profile?.logout())
             dispatch(registerData?.logout())
+            
             dispatch(registerData?.clearPayload())
             dispatch(profile?.logout())
             // localStorage.clear(LOCALSTORAGE_KEY_NAME)

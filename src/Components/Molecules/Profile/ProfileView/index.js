@@ -13,7 +13,7 @@ export default function NameAndProfilePicView({ setShowEditPersonalDetails = () 
     const dispatch = useDispatch()
     useEffect(() => {
         // dispatch(gettingProfilePic({}))
-        dispatch(getVehicleData({}))
+        // dispatch(getVehicleData({}))
        
     }, [])
     const StoreData = useSelector(state => state)

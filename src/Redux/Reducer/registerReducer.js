@@ -3,8 +3,8 @@ import { ACTION_STATES } from "../ActionStates";
 const initialStateForRegister = {
   email: "",
   password: "",
-  first_name: "",
-  last_name: "",
+  firstName: "",
+  lastName: "",
   dob: "",
   title: "",
   gender: "",
@@ -25,12 +25,12 @@ export const registerReducer = (state = initialStateForRegister, action) => {
     case ACTION_STATES.ADD_FIRSTNAME:
       return {
         ...state,
-        first_name: action?.payload,
+        firstName: action?.payload,
       };
     case ACTION_STATES.ADD_LASTNAME:
       return {
         ...state,
-        last_name: action?.payload,
+        lastName: action?.payload,
       };
     case ACTION_STATES.ADD_TITLE:
       let gender;

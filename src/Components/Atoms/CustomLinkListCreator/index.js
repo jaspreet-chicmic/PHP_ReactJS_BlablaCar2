@@ -60,7 +60,7 @@ export default function CustomLinkListCreator({
             to={route}
           >
             <span className={!profileViewLink ? `linkText` : `profilelinkText`}>
-              {linkText || profileRed?.f_name}
+              {linkText || profileRed?.firstName}
             </span>
             {pic && (
               <div className="profilePicDiv">

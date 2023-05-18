@@ -16,7 +16,7 @@ export default function CustomInput({
   showEyePicture = false,
   setInputType = () => {},
   actionName = updateProfile,
-  payloadKey = "f_name",
+  payloadKey = "firstName",
 }) {
   const dispatch = useDispatch();
 

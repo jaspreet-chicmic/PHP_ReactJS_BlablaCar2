@@ -2,14 +2,12 @@ import { ACTION_STATES } from "../ActionStates";
 const initialUserDataState = {
   email: "",
   password: "",
-  f_name: "",
-  l_name: "",
+  firstName: "",
+  lastName: "",
   dob: "",
   title: "",
   phone_number: "",
   token: "",
-  first_name: "",
-  last_name: "",
   gender: "",
 };
 

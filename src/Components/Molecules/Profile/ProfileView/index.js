@@ -27,7 +27,7 @@ export default function NameAndProfilePicView({
         <CustomLinkListCreator
           pic={true}
           profileViewLink={true}
-          linkText={userData?.first_name}
+          linkText={userData?.firstName}
           handleSelect={handleSelect}
           profilePic={StoreData?.profilePicReducer}
         />

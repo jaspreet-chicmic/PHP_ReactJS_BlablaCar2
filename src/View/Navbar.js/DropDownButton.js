@@ -22,8 +22,8 @@ export default function NavContent({
           handleDropDownIconPosition();
         }}
       >
-        {profile?.f_name && (
-          <label className="userName">{profile?.f_name}</label>
+        {profile?.firstName && (
+          <label className="userName">{profile?.firstName}</label>
         )}
         <div className="profileOptions">
           {token && profilePic ? (

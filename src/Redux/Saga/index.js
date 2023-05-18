@@ -78,15 +78,15 @@ function* logOut() {
 function* postRegisterData(payload) {
   try {
     yield put(settingLoaderState(true));
-    const { dob, gender, password, nameTitle, first_name, last_name, email } =
+    const { dob, gender, password, nameTitle, firstName, lastName, email } =
       payload?.payload;
     const initialPayload = {
       email,
       password,
       dob,
       gender,
-      first_name: first_name,
-      last_name: last_name,
+      firstName: firstName,
+      lastName: lastName,
       // nameTitle,
     };
 
@@ -104,7 +104,7 @@ function* postRegisterData(payload) {
       "res token and headers",
       res?.headers,
       res.success?.token,
-      res.success?.f_name
+      res.success?.firstName
     );
     // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res))
     // localStorage.setItem("CurrentUser", JSON.stringify(res?.data))

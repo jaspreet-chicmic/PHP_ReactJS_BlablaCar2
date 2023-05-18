@@ -20,8 +20,8 @@ export default function EditPersonalDetails({ show, setShow = () => {} }) {
   const registerDataRed = useSelector((state) => state.registerReducer);
 
   const userData = JSON.parse(localStorage.getItem("CurrentUser"));
-  const [firstName, setFirstName] = useState(userData?.first_name || "");
-  const [lastName, setLastName] = useState(userData?.last_name || "");
+  const [firstName, setFirstName] = useState(userData?.firstName || "");
+  const [lastName, setLastName] = useState(userData?.lastName || "");
   const [dob, setDob] = useState(new Date(userData?.dob || ""));
   const [gender, SetGender] = useState(userData?.title || "");
   const [email, setEmail] = useState(userData?.email || "");
@@ -51,16 +51,16 @@ export default function EditPersonalDetails({ show, setShow = () => {} }) {
     } else {
       // const myData = JSON.parse(localStorage.getItem('CurrentUser'));
       // myData.email=email
-      // myData.first_name=firstName
-      // myData.last_name=lastName
+      // myData.firstName=firstName
+      // myData.lastName=lastName
       // myData.dob=dob.toLocaleString().split(",")[0]
       // myData.title=gender
       // localStorage.setItem("CurrentUser",JSON.stringify(myData))
       dispatch(
         updateProfile({
           email: email,
-          first_name: firstName,
-          last_name: lastName,
+          firstName: firstName,
+          lastName: lastName,
           dob: dob.toLocaleString().split(",")[0],
           title: gender,
         })
@@ -79,9 +79,9 @@ export default function EditPersonalDetails({ show, setShow = () => {} }) {
         </div>
         <CustomInput
           validationType={VALIDATION_TYPE.NAME}
-          state={userDataRed?.f_name}
+          state={userDataRed?.firstName}
           actionName={updateProfile}
-          payloadKey="f_name"
+          payloadKey="firstName"
           validationMessage={validationMessageFirstName}
           setValidationMessage={setValidationMessageFirstName}
           placeHolder={PLACEHOLDERS.FIRST_NAME}
@@ -92,9 +92,9 @@ export default function EditPersonalDetails({ show, setShow = () => {} }) {
         </div>
         <CustomInput
           validationType={VALIDATION_TYPE.NAME}
-          state={userDataRed?.l_name}
+          state={userDataRed?.lastName}
           setState={(e) =>
-            dispatch(updateProfile({ l_name: e?.target?.value }))
+            dispatch(updateProfile({ lastName: e?.target?.value }))
           }
           validationMessage={validationMessageLastName}
           setValidationMessage={setValidationMessageLastName}

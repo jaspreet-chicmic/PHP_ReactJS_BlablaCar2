@@ -1,4 +1,5 @@
 
+import { NAME_PREFIXES } from "../../Shared/Constants";
 import { ACTION_STATES } from "../ActionStates";
 const initialStateForRegister = {
     "email": "",
@@ -7,6 +8,7 @@ const initialStateForRegister = {
     "last_name": "",
     "dob": "",
     "title": "",
+    "gender": "",
     "phone_number": ""
 }
 export const registerReducer = (state = initialStateForRegister, action) => {
@@ -28,8 +30,15 @@ export const registerReducer = (state = initialStateForRegister, action) => {
                 ...state, last_name: action?.payload
             }
         case ACTION_STATES.ADD_TITLE:
+            let gender; 
+            if(action?.payload===NAME_PREFIXES.MALE) 
+                gender = "Male"
+            else if(action?.payload === NAME_PREFIXES.FEMALE)
+                gender = "Female"
+            else
+                gender = "Other"
             return {
-                ...state, title: action?.payload
+                ...state, title: action?.payload, gender: gender
             }
         case ACTION_STATES.ADD_PASSWORD:
             return {

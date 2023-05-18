@@ -42,20 +42,20 @@ function* logOut() {
     try {
         console.log("in logout")
         yield put(settingLoaderState(true));
-        const profileRed = yield select((state)=>{
-            console.log(state,"state In logout")
+        const profileRed = yield select((state) => {
+            console.log(state, "state In logout")
             return state.saveUserDataReducer
         });
         const authVal = "Bearer " + profileRed.token
-        console.log(authVal," authVal")
+        console.log(authVal, " authVal")
         const headers = {
             "ngrok-skip-browser-warning": "69420",
             'Content-Type': 'application/json', // Example header
             'Authorization': authVal, // Example authorization header
-          };
+        };
         const res = yield axios.post(
-            BASE_URL + URL_EXTENSIONS.LOG_OUT,"",
-            {headers}
+            BASE_URL + URL_EXTENSIONS.LOG_OUT, "",
+            { headers }
         );
         // const res2 = yield axios.post(
         //     BASE_URL + URL_EXTENSIONS.LOG_OUT,"",
@@ -70,14 +70,15 @@ function* logOut() {
 function* postRegisterData(payload) {
     try {
         yield put(settingLoaderState(true))
-        const { dob, password, nameTitle, first_name, last_name, email } = payload?.payload;
+        const { dob, gender, password, nameTitle, first_name, last_name, email } = payload?.payload;
         const initialPayload = {
-            dob,
-            f_name: first_name,
-            l_name: last_name,
             email,
             password,
-            nameTitle,
+            dob,
+            gender,
+            first_name: first_name,
+            last_name: last_name,
+            // nameTitle,
         }
 
         const formData = new FormData();
@@ -121,10 +122,10 @@ function* postLoginData(payload) {
         );
         console.log(res, "res token and headers", res?.data?.token, res?.data?.detail)//, res.data?.data?.
         yield put(profile.saveProfile(res?.data?.detail))
-        localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.data?.token))
+        // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.data?.token))
         // localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.detail))
-        console.log("token ",res?.data?.token)
-        yield put(profile.saveToken({"token":res?.data?.token}))
+        console.log("token ", res?.data?.token)
+        yield put(profile.saveToken({ "token": res?.data?.token }))
         payload?.successLogin()
 
         // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
@@ -206,12 +207,12 @@ function* gettingProfilePic() {
 
 function* updateProfileData(action) {
     try {
-        const profileRed = yield select((state)=>{
-            console.log(state,"state In logout")
+        const profileRed = yield select((state) => {
+            console.log(state, "state In logout")
             return state.saveUserDataReducer
         });
-        const token= profileRed.token;
-        const config = { headers: { 'Authorization': "Bearer "+token } };
+        const token = profileRed.token;
+        const config = { headers: { 'Authorization': "Bearer " + token } };
         yield put(settingLoaderState(true))
         const res = yield axios.post(
             BASE_URL + URL_EXTENSIONS.UPDATE_PROFILE, { user: action?.payload }, config

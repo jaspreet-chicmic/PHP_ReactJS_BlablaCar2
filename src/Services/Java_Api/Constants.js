@@ -1,4 +1,4 @@
-export const BASE_URL="https://ad22-112-196-113-2.ngrok-free.app/"
+export const BASE_URL="https://071a-112-196-113-2.ngrok-free.app/"
 export const URL_EXTENSIONS={
     SIGN_UP:"api/signup",
     SIGN_IN:"api/login",

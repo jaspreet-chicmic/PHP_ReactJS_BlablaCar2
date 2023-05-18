@@ -27,7 +27,14 @@ export const REGEX={
     name: "[a-zA-Z][a-zA-Z]+",
     password:"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})",
     numberAndText:"/^[a-zA-Z0-9]+$/",
-    numer:"/^[0-9]+$/"
+    number:"/^[0-9]+$/"
+}
+export const VALIDATION_TYPE={
+    EMAIL:"email",
+    NAME:"name",
+    PASSWORD:"password",
+    NUMBER: "number",
+    NUMBER_AND_TEXT: "numberAndText"
 }
 
 export const VALIDATION_MESSAGES={
@@ -86,6 +93,11 @@ export const VALIDATION_MESSAGES={
     },
 }
 
+export const NAME_PREFIXES={
+    FEMALE: "Miss/Madam",
+    MALE: "Sir",
+    NEITHER:"I'd rather not say",
+}
 
 
 export const LOCALSTORAGE_KEY_NAME="token"

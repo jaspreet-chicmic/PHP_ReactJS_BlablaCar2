@@ -9,7 +9,11 @@ const initialUserDataState= {
     "title": "",    
     "phone_number": "",
     "token":"",
+    "first_name": "",
+    "last_name": "",
+    "gender": "",
 }
+
 export const saveUserDataReducer = (state = initialUserDataState, action) => {
     switch (action?.type) {
         case ACTION_STATES.SAVE_PROFILE:

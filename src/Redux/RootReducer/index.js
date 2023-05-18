@@ -7,11 +7,11 @@ import { VehicleDataReducer } from "../Reducer/setVehicleData";
 import { saveUserDataReducer } from "../Reducer/saveUserDataReducer";
 
 const appReducer = combineReducers({
-    registerReducer: registerReducer,
-    loaderStateReducer:loaderStateReducer,
-    profilePicReducer:profilePicReducer,
-    vehicleDataReducer:VehicleDataReducer,
-    saveUserDataReducer:saveUserDataReducer
+  registerReducer: registerReducer,
+  loaderStateReducer: loaderStateReducer,
+  profilePicReducer: profilePicReducer,
+  vehicleDataReducer: VehicleDataReducer,
+  saveUserDataReducer: saveUserDataReducer,
 });
 const rootReducer = (state, action) => {
   return appReducer(state, action);

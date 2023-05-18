@@ -2,15 +2,16 @@ import { Route } from "react-router-dom";
 import Home from "../View/Home";
 
 const RenderRoutes = ({
-  routes = [  {
+  routes = [
+    {
       path: "/",
-      component: () => <Home/>,
+      component: () => <Home />,
     },
   ],
 }) => (
   <>
     {routes.map((route) => (
-      <Route path={route.path}  element={route.component}  />
+      <Route path={route.path} element={route.component} />
     ))}
   </>
 );

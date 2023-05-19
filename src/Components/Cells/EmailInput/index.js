@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { STRINGS, VALIDATION_MESSAGES } from "../../../Shared/Constants";
 import { isValidEmail } from "../../../Shared/Utilities";
 import { useDispatch, useSelector } from "react-redux";
-import { registerData } from "../../../Redux/Actions";
+import { registerData, updateProfile } from "../../../Redux/Actions";
 import { STATUS_MESSAGE } from "../../../Services/Java_Api/Constants";
 export default function EmailInput() {
   const dispatch = useDispatch();

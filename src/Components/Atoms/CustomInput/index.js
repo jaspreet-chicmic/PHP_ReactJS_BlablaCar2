@@ -6,17 +6,17 @@ import { useDispatch } from "react-redux";
 export default function CustomInput({
   type = "text",
   state = "",
-  setState = () => {},
+  setState = () => { },
   placeHolder = "",
   validationMessage = "",
-  handleSubmit = () => {},
-  setValidationMessage = () => {},
+  handleSubmit = () => { },
+  setValidationMessage = () => { },
   inputType = "",
   inputId,
   showEyePicture = false,
-  setInputType = () => {},
+  setInputType = () => { },
   actionName = updateProfile,
-  payloadKey = "firstName",
+  payloadKey = "",
 }) {
   const dispatch = useDispatch();
 
@@ -38,40 +38,11 @@ export default function CustomInput({
     setValidationMessage("");
   };
   return (
-    <div className="section-data">
+
+<div className='section-data'>
       <div className={!validationMessage ? `inputDiv` : `inputDivInvalid`}>
-        <input
-          id={inputId}
-          className="Input"
-          onKeyDown={handleKey}
-          type={type}
-          placeholder={placeHolder}
-          value={state}
-          onChange={(e) => {
-            handleChange(e.target.value);
-          }}
-        />
-        <br />
-        {showEyePicture &&
-          (inputType !== "password" ? (
-            <img
-              className="closePasswordIcon"
-              src={Images.closeEye}
-              alt=""
-              onClick={() => {
-                setInputType("password");
-              }}
-            />
-          ) : (
-            <img
-              className="showPasswordIcon"
-              src={Images.openEye}
-              alt=""
-              onClick={() => {
-                setInputType("text");
-              }}
-            />
-          ))}
+        <input id={inputId} className='Input' onKeyDown={handleKey} type={type} placeholder={placeHolder} value={state} onChange={(e) => { handleChange(e.target.value) }} /><br />
+        {showEyePicture &&(inputType!=="password"? <img className="closePasswordIcon" src={Images.closeEye} alt="" onClick={()=>{setInputType("password")}}/>: <img className="showPasswordIcon" src={Images.openEye} alt="" onClick={()=>{setInputType("text")}} />)}       
       </div>
     </div>
   );

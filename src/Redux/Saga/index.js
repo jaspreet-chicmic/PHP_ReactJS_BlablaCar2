@@ -135,18 +135,18 @@ function* postLoginData(payload) {
     }
 
     const res = yield axios.post(BASE_URL + URL_EXTENSIONS.SIGN_IN, formData);
-    console.log(
-      res,
-      "res token and headers",
-      res?.data?.token,
-      res?.data?.detail
-    ); //, res.data?.data?.
-    yield put(profile.saveProfile(res?.data?.detail));
+    console.log(res, "res token "); //, res.data?.data?.
+
+    if (!res?.data?.error)
+      yield put(profile.saveProfile(res?.data?.detail));
     // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.data?.token))
     // localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.detail))
+
     console.log("token ", res?.data?.token);
-    yield put(profile.saveToken({ token: res?.data?.token }));
-    payload?.successLogin();
+    if (!res?.data?.error) {
+      yield put(profile.saveToken({ token: res?.data?.token }));
+      payload?.successLogin();
+    }
 
     // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.headers?.authorization))
     // localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.status?.data))
@@ -224,19 +224,36 @@ function* gettingProfilePic() {
 
 function* updateProfileData(action) {
   try {
+    yield put(settingLoaderState(true));
+
+    const { dob, gender, firstName, lastName, phoneNumber="" } = action?.payload;
+    const initialPayload = {
+      dob,
+      gender,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber
+    }
+    const formData = new FormData();
+    for (let key in initialPayload) {
+      formData.append(key, initialPayload[key]);
+    }
+
     const profileRed = yield select((state) => {
-      console.log(state, "state In logout");
       return state.saveUserDataReducer;
     });
-    const token = profileRed.token;
-    const config = { headers: { Authorization: "Bearer " + token } };
-    yield put(settingLoaderState(true));
-    const res = yield axios.post(
-      BASE_URL + URL_EXTENSIONS.UPDATE_PROFILE,
-      { user: action?.payload },
-      config
-    );
-    console.log(res?.data?.status?.data, "profileUpdated");
+    const authVal = "Bearer " + profileRed.token;
+    console.log(authVal, " authVal");
+    const headers = {
+      "ngrok-skip-browser-warning": "69420",
+      "Content-Type": "application/json", // Example header
+      Authorization: authVal, // Example authorization header
+    };
+    const res = yield axios.post(BASE_URL + URL_EXTENSIONS.PROFILE_UPDATE, "", {
+      headers,
+    });
+
+    // console.log(res?.data?.status?.data, "profileUpdated");
     // localStorage.setItem("CurrentUser",JSON.stringify(res?.data?.status?.data))
     yield put(settingLoaderState(false));
   } catch (error) {

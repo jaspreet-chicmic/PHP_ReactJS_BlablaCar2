@@ -15,19 +15,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../../../../Redux/Actions";
 import ValidationText from "../../../Atoms/ValidationText";
 import { useNavigate } from "react-router-dom";
-export default function EditPersonalDetails({ show, setShow = () => {} }) {
+export default function EditPersonalDetails({ show, setShow = () => { } }) {
   const userDataRed = useSelector((state) => state.saveUserDataReducer);
   const registerDataRed = useSelector((state) => state.registerReducer);
 
-  const userData = JSON.parse(localStorage.getItem("CurrentUser"));
-  const [firstName, setFirstName] = useState(userData?.firstName || "");
-  const [lastName, setLastName] = useState(userData?.lastName || "");
-  const [dob, setDob] = useState(new Date(userData?.dob || ""));
-  const [gender, SetGender] = useState(userData?.title || "");
-  const [email, setEmail] = useState(userData?.email || "");
+  // const userData = JSON.parse(localStorage.getItem("CurrentUser"));
+  const [firstName, setFirstName] = useState(userDataRed?.firstName || "");
+  const [lastName, setLastName] = useState(userDataRed?.lastName || "");
+  const [dob, setDob] = useState(new Date(userDataRed?.dob));
+  const [gender, setGender] = useState(userDataRed?.gender || registerDataRed?.gender || "");
+  const [email, setEmail] = useState(userDataRed?.email || "");
   const [emailValidationMessage, setEmailValidationMessage] = useState("");
-  const [validationMessageFirstName, setValidationMessageFirstName] =
-    useState();
+  const [validationMessageFirstName, setValidationMessageFirstName] = useState();
   const [validationMessageLastName, setValidationMessageLastName] = useState();
   const [validationMessageDOB, setValidationMessageDOB] = useState();
   const [validationMessageGender, setValidationMessageGender] = useState();
@@ -62,7 +61,8 @@ export default function EditPersonalDetails({ show, setShow = () => {} }) {
           firstName: firstName,
           lastName: lastName,
           dob: dob.toLocaleString().split(",")[0],
-          title: gender,
+          gender: gender,
+          phoneNumber: ""
         })
       );
       setShow(false);
@@ -80,6 +80,7 @@ export default function EditPersonalDetails({ show, setShow = () => {} }) {
         <CustomInput
           validationType={VALIDATION_TYPE.NAME}
           state={userDataRed?.firstName}
+          setState={setFirstName}
           actionName={updateProfile}
           payloadKey="firstName"
           validationMessage={validationMessageFirstName}
@@ -93,9 +94,9 @@ export default function EditPersonalDetails({ show, setShow = () => {} }) {
         <CustomInput
           validationType={VALIDATION_TYPE.NAME}
           state={userDataRed?.lastName}
-          setState={(e) =>
-            dispatch(updateProfile({ lastName: e?.target?.value }))
-          }
+          setState={setLastName}
+          actionName={updateProfile}
+          payloadKey="secondName"
           validationMessage={validationMessageLastName}
           setValidationMessage={setValidationMessageLastName}
           placeHolder={PLACEHOLDERS.LAST_NAME}
@@ -106,9 +107,9 @@ export default function EditPersonalDetails({ show, setShow = () => {} }) {
         </div>
         <CustomInput
           state={userDataRed?.gender || registerDataRed?.gender}
-          setState={(e) =>
-            dispatch(updateProfile({ gender: e?.target?.value }))
-          }
+          setState={setGender}
+          actionName={updateProfile}
+          payloadKey="gender"
           validationMessage={validationMessageGender}
           setValidationMessage={setValidationMessageGender}
           placeHolder={PLACEHOLDERS.GENDER}
@@ -126,7 +127,9 @@ export default function EditPersonalDetails({ show, setShow = () => {} }) {
         <CustomInput
           validationType={VALIDATION_TYPE.EMAIL}
           state={userDataRed?.email}
-          setState={(e) => dispatch(updateProfile({ email: e?.target?.value }))}
+          setState={setEmail}
+          actionName={updateProfile}
+          payloadKey="email"
           validationMessage={emailValidationMessage}
           setValidationMessage={setEmailValidationMessage}
           placeHolder={PLACEHOLDERS.EMAIL_ADDRESS}

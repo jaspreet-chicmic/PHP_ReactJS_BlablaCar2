@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "./styles.css";
 import "react-datepicker/dist/react-datepicker.css";
+import { GET_DATE_TEN_YEARS_AGO } from "../../../Shared/Utilities";
 
 const DateInput = ({ validationMessage = "", startDate, setStartDate }) => {
   return (
@@ -15,6 +16,7 @@ const DateInput = ({ validationMessage = "", startDate, setStartDate }) => {
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             minDate={"01-01-1960"}
+            maxDate={GET_DATE_TEN_YEARS_AGO()}
           />
         </div>
         <br />

@@ -58,8 +58,7 @@ function* logOut() {
     const authVal = "Bearer " + profileRed.token;
     console.log(authVal, " authVal");
     const headers = {
-      "ngrok-skip-browser-warning": "69420",
-      "Content-Type": "application/json", // Example header
+      "ngrok-skip-browser-warning": "69420", // Example header
       Authorization: authVal, // Example authorization header
     };
     const res = yield axios.post(BASE_URL + URL_EXTENSIONS.LOG_OUT, "", {
@@ -226,19 +225,22 @@ function* updateProfileData(action) {
   try {
     yield put(settingLoaderState(true));
 
-    const { dob, gender, firstName, lastName, phoneNumber="" } = action?.payload;
+    const { dob, gender, firstName, lastName, phoneNumber="1234567890" } = action?.payload;
     const initialPayload = {
       dob,
       gender,
-      firstName: firstName,
-      lastName: lastName,
-      phoneNumber: phoneNumber
+      firstName,
+      lastName,
+      phoneNumber:"1234567890"
     }
+    // const formData2 = objectToFormData(initialPayload);
     const formData = new FormData();
     for (let key in initialPayload) {
-      formData.append(key, initialPayload[key]);
+      if (initialPayload.hasOwnProperty(key)) {
+        formData.append(key, initialPayload[key]);
+      }
     }
-
+    console.log([...formData]," initialPayload")
     const profileRed = yield select((state) => {
       return state.saveUserDataReducer;
     });
@@ -246,13 +248,16 @@ function* updateProfileData(action) {
     console.log(authVal, " authVal");
     const headers = {
       "ngrok-skip-browser-warning": "69420",
-      "Content-Type": "application/json", // Example header
       Authorization: authVal, // Example authorization header
     };
-    const res = yield axios.post(BASE_URL + URL_EXTENSIONS.PROFILE_UPDATE, "", {
+    const res = yield axios.patch(BASE_URL + URL_EXTENSIONS.PROFILE_UPDATE, formData , {
       headers,
     });
-
+    console.log("res initial", res)
+    if (res?.data?.httpStatus ==="ACCEPTED")
+      yield put(profile.saveProfile(res?.data?.data));
+  // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.data?.token))
+  // localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.detail))
     // console.log(res?.data?.status?.data, "profileUpdated");
     // localStorage.setItem("CurrentUser",JSON.stringify(res?.data?.status?.data))
     yield put(settingLoaderState(false));
@@ -417,6 +422,7 @@ function* Saga() {
     ),
     takeLatest(ACTION_STATES.SEND_RESET_PASSWORD, sendResetPassword),
     takeLatest(ACTION_STATES.UPDATE_PROFILE, updateProfileData),
+    // takeLatest(ACTION_STATES.SAVE_PROFILE, updateProfileData),
     takeLatest(ACTION_STATES.ADDING_MINI_BIO, updateBioData),
     takeLatest(ACTION_STATES.UPLOADING_PROFILE_PIC, uploadingPic),
     takeLatest(ACTION_STATES.GETTING_PROFILE_PIC, gettingProfilePic),

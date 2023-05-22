@@ -8,6 +8,12 @@ export const isValidObj = {
   numberAndText: new RegExp(REGEX?.numberAndText),
 };
 
+export const GET_DATE_TEN_YEARS_AGO = ()=>{
+  let now = new Date();
+  now.setFullYear(now.getFullYear() - 10);
+  return now;
+};
+
 export const isValidEmail = new RegExp(REGEX?.email);
 export const isValidName = new RegExp(REGEX?.name);
 export const isValidPassword = new RegExp(REGEX?.password);

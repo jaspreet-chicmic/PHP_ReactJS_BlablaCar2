@@ -7,6 +7,7 @@ import { STRINGS } from "../../../Shared/Constants";
 import DateInput from "../../Atoms/DateInput";
 import { registerData } from "../../../Redux/Actions";
 import { useDispatch } from "react-redux";
+import { GET_DATE_TEN_YEARS_AGO } from "../../../Shared/Utilities";
 
 export default function BirthDateInput() {
   const dispatch = useDispatch();
@@ -16,11 +17,12 @@ export default function BirthDateInput() {
     dispatch(registerData?.date(startDate.toLocaleString().split(",")[0]));
     navigate("/register/gender");
   };
+  
   return (
     <>
       <Header heading={STRINGS?.BIRTHDATE_HEADING} />
       <div className="section">
-        <DateInput startDate={startDate} setStartDate={setStartDate} />
+        <DateInput startDate={GET_DATE_TEN_YEARS_AGO()} setStartDate={setStartDate} />
       </div>
       <ContinueButton handleSubmit={handleSubmit} />
     </>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ModalComponent from "../../../Cells/Modal";
 import Header from "../../../Atoms/Header";
 import "../styles.css";
@@ -12,7 +12,7 @@ import {
 import { isValidEmail, isValidName } from "../../../../Shared/Utilities";
 import DateInput from "../../../Atoms/DateInput";
 import { useDispatch, useSelector } from "react-redux";
-import { updateProfile } from "../../../../Redux/Actions";
+import { profile, updateProfile } from "../../../../Redux/Actions";
 import ValidationText from "../../../Atoms/ValidationText";
 import { useNavigate } from "react-router-dom";
 export default function EditPersonalDetails({ show, setShow = () => { } }) {
@@ -22,7 +22,12 @@ export default function EditPersonalDetails({ show, setShow = () => { } }) {
   // const userData = JSON.parse(localStorage.getItem("CurrentUser"));
   const [firstName, setFirstName] = useState(userDataRed?.firstName || "");
   const [lastName, setLastName] = useState(userDataRed?.lastName || "");
-  const [dob, setDob] = useState(new Date(userDataRed?.dob));
+  let dateParts = userDataRed.dob.split("/");
+  const [dob, setDob] = useState(new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]));
+
+// month is 0-based, that's why we need dataParts[1] - 1 
+
+  console.log(dob,userDataRed.dob,new Date(userDataRed.dob),new Date(dateParts[2], dateParts[1] - 1, +dateParts[0]),"dob<>")
   const [gender, setGender] = useState(userDataRed?.gender || registerDataRed?.gender || "");
   const [email, setEmail] = useState(userDataRed?.email || "");
   const [emailValidationMessage, setEmailValidationMessage] = useState("");
@@ -32,6 +37,10 @@ export default function EditPersonalDetails({ show, setShow = () => { } }) {
   const [validationMessageGender, setValidationMessageGender] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // useEffect(()=>
+  // {
+  //   setDob(new Date(userDataRed.dob))
+  // },[])
   const handleSubmit = () => {
     if (!email.trim()) {
       setEmailValidationMessage(VALIDATION_MESSAGES?.EMAIL?.EMPTY);
@@ -55,6 +64,7 @@ export default function EditPersonalDetails({ show, setShow = () => { } }) {
       // myData.dob=dob.toLocaleString().split(",")[0]
       // myData.title=gender
       // localStorage.setItem("CurrentUser",JSON.stringify(myData))
+      // console.log(dob.toLocaleString().split(",")[0].toLocaleString(),"dob submit")
       dispatch(
         updateProfile({
           email: email,
@@ -65,6 +75,7 @@ export default function EditPersonalDetails({ show, setShow = () => { } }) {
           phoneNumber: ""
         })
       );
+
       setShow(false);
     }
   };
@@ -79,7 +90,7 @@ export default function EditPersonalDetails({ show, setShow = () => { } }) {
         </div>
         <CustomInput
           validationType={VALIDATION_TYPE.NAME}
-          state={userDataRed?.firstName}
+          state={firstName}
           setState={setFirstName}
           actionName={updateProfile}
           payloadKey="firstName"
@@ -93,7 +104,7 @@ export default function EditPersonalDetails({ show, setShow = () => { } }) {
         </div>
         <CustomInput
           validationType={VALIDATION_TYPE.NAME}
-          state={userDataRed?.lastName}
+          state={lastName}
           setState={setLastName}
           actionName={updateProfile}
           payloadKey="secondName"
@@ -106,8 +117,7 @@ export default function EditPersonalDetails({ show, setShow = () => { } }) {
           <span className="FillingMessage">{PLACEHOLDERS.GENDER}</span>
         </div>
         <CustomInput
-          state={userDataRed?.gender || registerDataRed?.gender}
-          setState={setGender}
+          state={gender}
           actionName={updateProfile}
           payloadKey="gender"
           validationMessage={validationMessageGender}
@@ -119,15 +129,14 @@ export default function EditPersonalDetails({ show, setShow = () => { } }) {
         <div className="FillingMessageDiv">
           <span className="FillingMessage">{PLACEHOLDERS.DOB}</span>
         </div>
-        {/* <DateInput startDate={dob} setStartDate={setDob}  setValidationMessageDOB={setValidationMessageDOB}/>
-        <ValidationText message={validationMessageDOB} /> */}
+        <DateInput startDate={dob} setStartDate={setDob} setValidationMessageDOB={setValidationMessageDOB}/>
+        <ValidationText message={validationMessageDOB} />
         <div className="FillingMessageDiv">
           <span className="FillingMessage">{PLACEHOLDERS.EMAIL_ADDRESS}</span>
         </div>
         <CustomInput
           validationType={VALIDATION_TYPE.EMAIL}
-          state={userDataRed?.email}
-          setState={setEmail}
+          state={email}
           actionName={updateProfile}
           payloadKey="email"
           validationMessage={emailValidationMessage}

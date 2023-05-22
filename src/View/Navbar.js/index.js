@@ -7,11 +7,12 @@ import NavContent from "./DropDownButton";
 
 import Linkto from "../../Components/Atoms/LinkTo";
 import { useSelector } from "react-redux";
+import { registerData } from "../../Redux/Actions";
 export default function Navbar() {
   const navigate = useNavigate();
   const currentPath = useLocation();
   const userDataRed = useSelector((state) => state.saveUserDataReducer);
-  const token = userDataRed.token;
+  const token = userDataRed.token||registerData.token;
   console.log(token, "token");
   const [dropDownIconPosition, setDropDownIconPosition] =
     useState("dropDownIconDown");

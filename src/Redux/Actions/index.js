@@ -135,7 +135,7 @@ export const uploadProfilePic = (payload, successImageUpload) => {
 };
 export const updateProfile = (payload) => {
   return {
-    type: ACTION_STATES.SAVE_PROFILE,
+    type: ACTION_STATES.UPDATE_PROFILE,
     payload,
   };
 };

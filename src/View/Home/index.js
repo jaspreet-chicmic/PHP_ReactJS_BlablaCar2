@@ -17,8 +17,8 @@ export default function Home() {
       <img
         className="homeBackgroundImg"
         src={Images.homeBackground}
-        alt=""
-      ></img>
+        alt="homeBackgroundImg"
+      />
     </div>
   );
 }

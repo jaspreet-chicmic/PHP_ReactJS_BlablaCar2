@@ -3,7 +3,7 @@ import Header from "../../Atoms/Header";
 
 import CustomInput from "../../Atoms/CustomInput";
 import { useLocation, useNavigate } from "react-router-dom";
-import ContinueButton from "../../Atoms/ContinueButton";
+import Button from "../../Atoms/Button";
 import { STRINGS, VALIDATION_MESSAGES } from "../../../Shared/Constants";
 import { isValidPassword } from "../../../Shared/Utilities";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,7 +71,7 @@ export default function ResetPassword() {
         setValidationMessage={setRepasswordValidationMessage}
       />
       <label className="validationMessage">{repasswordValidationMessage}</label>
-      <ContinueButton handleSubmit={handleSubmit} />
+      <Button handleSubmit={handleSubmit} />
     </div>
   );
 }

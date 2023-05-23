@@ -6,7 +6,7 @@ import {
   VALIDATION_MESSAGES,
 } from "../../../../../Shared/Constants";
 import CustomInput from "../../../../Atoms/CustomInput";
-import ContinueButton from "../../../../Atoms/ContinueButton";
+import Button from "../../../../Atoms/Button";
 import ValidationText from "../../../../Atoms/ValidationText";
 import {
   isValidName,
@@ -154,7 +154,7 @@ export default function AddVehicleDetails() {
         />
         <ValidationText message={vehicleModelYearValidationMessage} />
       </div>
-      <ContinueButton ButtonText="save" handleSubmit={handleSubmit} />
+      <Button ButtonText="save" handleSubmit={handleSubmit} />
     </div>
   );
 }

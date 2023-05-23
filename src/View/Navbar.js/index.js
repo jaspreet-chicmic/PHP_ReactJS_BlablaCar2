@@ -47,7 +47,7 @@ export default function Navbar() {
               onClick={() => {
                 navigate("/");
               }}
-            ></img>
+            />
           </span>
         </div>
         {(!currentPath?.pathname?.includes("register") || token) && (

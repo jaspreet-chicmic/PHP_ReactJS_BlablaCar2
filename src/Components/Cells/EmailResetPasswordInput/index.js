@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../../Atoms/Header";
 import { STRINGS, VALIDATION_MESSAGES } from "../../../Shared/Constants";
 import CustomInput from "../../Atoms/CustomInput";
-import ContinueButton from "../../Atoms/ContinueButton";
+import Button from "../../Atoms/Button";
 import { isValidEmail, isValidPassword } from "../../../Shared/Utilities";
 import {
   loginData,
@@ -42,7 +42,7 @@ export default function LoginForgetPassword() {
         />
         <label className="validationMessage">{validationMessageEmail}</label>
       </div>
-      <ContinueButton handleSubmit={handleSubmit} />
+      <Button handleSubmit={handleSubmit} />
     </>
   );
 }

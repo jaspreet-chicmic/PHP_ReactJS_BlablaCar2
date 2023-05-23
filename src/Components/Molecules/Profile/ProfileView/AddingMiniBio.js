@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../../../Atoms/Header";
 import { STRINGS, VALIDATION_MESSAGES } from "../../../../Shared/Constants";
 import ModalComponent from "../../../Cells/Modal";
-import ContinueButton from "../../../Atoms/ContinueButton";
+import Button from "../../../Atoms/Button";
 import { useDispatch } from "react-redux";
 import { addingBio } from "../../../../Redux/Actions";
 import ValidationText from "../../../Atoms/ValidationText";
@@ -26,7 +26,7 @@ export default function AddingMiniBio({ show, setShow = () => {} }) {
         <textarea
           className="miniBioInput"
           value={bio}
-          onChange={(e) => {
+          setState={(e) => {
             setBio(e.target.value);
             setBioValidationMessage("");
           }}
@@ -35,7 +35,7 @@ export default function AddingMiniBio({ show, setShow = () => {} }) {
       </div>
       <ValidationText message={bioValidationMessage} />
 
-      <ContinueButton ButtonText="save" handleSubmit={handleSubmit} />
+      <Button ButtonText="save" handleSubmit={handleSubmit} />
     </ModalComponent>
   );
 }

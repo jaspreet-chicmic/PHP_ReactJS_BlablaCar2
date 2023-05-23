@@ -27,10 +27,8 @@ function* emailVerificationCheck(email) {
     // const formData = new FormData();
     // formData.append("email", email);
 
-    console.log("email api b4 response", email);
     const res = yield axios.post(BASE_URL + URL_EXTENSIONS.EMAIL, email);
     // yield put(settingLoaderState(false))
-    console.log(res, "email api response");
     yield put(settingLoaderState(false));
     // if (res?.status && res?.status === STATUS_MESSAGE.FORBIDDEN) {
     //     email.navigateToProfile(res)
@@ -49,14 +47,11 @@ function* emailVerificationCheck(email) {
 
 function* logOut() {
   try {
-    console.log("in logout");
     yield put(settingLoaderState(true));
     const profileRed = yield select((state) => {
-      console.log(state, "state In logout");
       return state.saveUserDataReducer;
     });
     const authVal = "Bearer " + profileRed.token;
-    console.log(authVal, " authVal");
     const headers = {
       "ngrok-skip-browser-warning": "69420", // Example header
       Authorization: authVal, // Example authorization header
@@ -136,12 +131,12 @@ function* postLoginData(payload) {
     const res = yield axios.post(BASE_URL + URL_EXTENSIONS.SIGN_IN, formData);
     console.log(res, "res token "); //, res.data?.data?.
 
+    console.log("in success out");
     if (!res?.data?.error)
       yield put(profile.saveProfile(res?.data?.detail));
     // localStorage.setItem(LOCALSTORAGE_KEY_NAME, (res?.data?.token))
     // localStorage.setItem("CurrentUser", JSON.stringify(res?.data?.detail))
 
-    console.log("token ", res?.data?.token);
     if (!res?.data?.error) {
       yield put(profile.saveToken({ token: res?.data?.token }));
       payload?.successLogin();
@@ -152,8 +147,8 @@ function* postLoginData(payload) {
     yield put(settingLoaderState(false));
   } catch (error) {
     yield put(settingLoaderState(false));
-    console.log(error);
-    payload?.failedLogin(error?.response?.data || "server not responding");
+    console.log(error, error?.response?.data?.error, error?.res,"failedLogin ");
+    payload?.failedLogin(error?.response?.data?.error || "server not responding");
   }
 }
 
@@ -184,17 +179,22 @@ function* sendResetPassword(payload) {
 
 function* uploadingPic(payload) {
   try {
-    const token = localStorage.getItem("token");
-    const config = {
-      headers: { Authorization: token },
+    const profileRed = yield select((state) => {
+      return state.saveUserDataReducer;
+    });
+    const authVal = "Bearer " + profileRed.token;
+    const headers = {
+      'Content-Type': 'multipart/form-data',
+      "ngrok-skip-browser-warning": "69420", // Example header
+      Authorization: authVal, // Example authorization header
     };
-    console.log(payload?.payload, "imageinsaga");
+
+    // console.log([...payload]," image")
     yield put(settingLoaderState(true));
-    const res = yield axios.put(
-      BASE_URL + URL_EXTENSIONS.PROFILE_PIC,
-      payload?.payload,
-      config
-    );
+    const res = yield axios.post(BASE_URL + URL_EXTENSIONS.UPLOAD_PROFILE_PIC, payload?.payload, {
+      headers,
+    });
+
     payload?.successImageUpload();
     yield put(settingLoaderState(false));
   } catch (error) {
@@ -205,15 +205,21 @@ function* uploadingPic(payload) {
 
 function* gettingProfilePic() {
   try {
-    const token = localStorage.getItem("token");
-    const config = {
-      headers: { Authorization: token },
+    const profileRed = yield select((state) => {
+      return state.saveUserDataReducer;
+    });
+    const authVal = "Bearer " + profileRed.token;
+    const headers = {
+      "ngrok-skip-browser-warning": "69420", // Example header
+      Authorization: authVal, // Example authorization header
     };
-    console.log("get image called");
+
     yield put(settingLoaderState(true));
-    const res = yield axios.get(BASE_URL + URL_EXTENSIONS.PROFILE_PIC, config);
-    console.log(res, "imageinsaga");
-    yield put(savingProfilePic(res?.data?.data?.image_url));
+    const res = yield axios.get(BASE_URL + URL_EXTENSIONS.GET_PROFILE_IMAGE, {
+      headers,
+    });
+    console.log(res,"image in saga")
+    yield put(savingProfilePic(res));
     yield put(settingLoaderState(false));
   } catch (error) {
     yield put(settingLoaderState(false));

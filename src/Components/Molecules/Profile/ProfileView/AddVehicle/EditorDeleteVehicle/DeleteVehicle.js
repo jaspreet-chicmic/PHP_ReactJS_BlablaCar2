@@ -1,6 +1,6 @@
 import React from "react";
 import ModalComponent from "../../../../../Cells/Modal";
-import ContinueButton from "../../../../../Atoms/ContinueButton";
+import Button from "../../../../../Atoms/Button";
 import Header from "../../../../../Atoms/Header";
 import { useDispatch } from "react-redux";
 import { deleteVehicle, getVehicleData } from "../../../../../../Redux/Actions";
@@ -24,7 +24,7 @@ export default function DeleteVehicle({ show, setShow = () => {}, id }) {
       <ModalComponent show={show} setShow={setShow}>
         <div>
           <Header heading="Sure to delete Vehicle"></Header>
-          <ContinueButton ButtonText="Delete" handleSubmit={handleSubmit} />
+          <Button ButtonText="Delete" handleSubmit={handleSubmit} />
         </div>
       </ModalComponent>
     </div>

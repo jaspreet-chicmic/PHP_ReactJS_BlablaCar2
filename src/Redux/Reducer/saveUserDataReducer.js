@@ -15,7 +15,7 @@ export const saveUserDataReducer = (state = initialUserDataState, action) => {
   switch (action?.type) {
     case ACTION_STATES.SAVE_PROFILE:
       return {
-        ...state,
+        state,
         ...action?.payload,
       };
     case ACTION_STATES.SAVE_PROFILE_TOKEN:

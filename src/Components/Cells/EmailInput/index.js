@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CustomInput from "../../Atoms/CustomInput";
-import ContinueButton from "../../Atoms/ContinueButton";
+import Button from "../../Atoms/Button";
 import Header from "../../Atoms/Header";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
@@ -50,7 +50,7 @@ export default function EmailInput() {
         />
         <label className="validationMessage">{validationMessage}</label>
       </div>
-      <ContinueButton handleSubmit={handleSubmit} />
+      <Button handleSubmit={handleSubmit} />
     </>
   );
 }

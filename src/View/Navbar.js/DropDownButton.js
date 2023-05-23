@@ -11,7 +11,9 @@ export default function NavContent({
   const dispatch = useDispatch();
   const userDataRed = useSelector((state) => state.saveUserDataReducer);
   const token = userDataRed.token;
-  // useEffect(()=>{   dispatch(gettingProfilePic())},[token])
+  useEffect(()=>{dispatch(gettingProfilePic())
+   
+  },[token])
   // const userData=JSON.parse(localStorage.getItem(("CurrentUser")))
   const profilePic = useSelector((state) => state?.profilePicReducer);
   return (
@@ -27,7 +29,7 @@ export default function NavContent({
         )}
         <div className="profileOptions">
           {token && profilePic ? (
-            <img className="profileImg" src={profilePic} alt=""></img>
+            <img className="profileImg" src={profilePic} alt=""/>
           ) : (
             <img className="profileImg" src={Images?.profile} alt=""></img>
           )}
@@ -35,8 +37,8 @@ export default function NavContent({
         <img
           className={dropDownIconPosition}
           src={Images?.upsideArrow}
-          alt=""
-        ></img>
+          alt="upsideArrow"
+        />
       </button>
     </div>
   );

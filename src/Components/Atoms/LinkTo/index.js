@@ -14,8 +14,8 @@ export default function Linkto({
           <img
             className="publishRideImg"
             src={Images?.additionIcon}
-            alt=""
-          ></img>
+            alt="publishRideImg"
+          />
         )}
         <div className="publishRideText">{linkText}</div>
       </Link>

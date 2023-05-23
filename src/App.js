@@ -10,7 +10,6 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Loader />
         <Navbar />
         <div className="main">
           {/* <PublicRoutes /> */}

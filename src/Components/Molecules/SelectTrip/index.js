@@ -9,7 +9,7 @@ export default function SelectTrip() {
       <form className="selectTripForm">
         <div className="selectTripDataInputDiv">
           <label className="selectTripDataLabel">
-            <img src={Images?.ring} alt="" />
+            <img src={Images?.ring} alt="ring" />
           </label>
           <input
             type="search"
@@ -20,7 +20,7 @@ export default function SelectTrip() {
         <hr className="seperator" />
         <div className="selectTripDataInputDiv">
           <label className="selectTripDataLabel">
-            <img src={Images?.ring} alt="" />
+            <img src={Images?.ring} alt="ring" />
           </label>
           <input
             type="search"
@@ -37,7 +37,7 @@ export default function SelectTrip() {
 
         <div className="selectTripDataInputDiv">
           <button type="button" className="selectTripButton">
-            <img src={Images?.userProfileIcon} alt="" />
+            <img src={Images?.userProfileIcon} alt="userProfileIcon" />
             <span className="selectTripSpan">1 </span>
           </button>
         </div>

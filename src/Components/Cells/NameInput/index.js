@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../../Atoms/Header";
 import CustomInput from "../../Atoms/CustomInput";
-import ContinueButton from "../../Atoms/ContinueButton";
+import Button from "../../Atoms/Button";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import { STRINGS, VALIDATION_MESSAGES } from "../../../Shared/Constants";
@@ -60,7 +60,7 @@ export default function NameInput() {
         />
         <label className="validationMessage">{validationMessageLastName}</label>
       </div>
-      <ContinueButton handleSubmit={handleSubmit} />
+      <Button handleSubmit={handleSubmit} />
     </>
   );
 }

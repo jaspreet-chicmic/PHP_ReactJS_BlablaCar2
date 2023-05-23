@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import Header from "../../Atoms/Header";
 import { STRINGS, VALIDATION_MESSAGES } from "../../../Shared/Constants";
 import CustomInput from "../../Atoms/CustomInput";
-import ContinueButton from "../../Atoms/ContinueButton";
+import Button from "../../Atoms/Button";
 import { isValidEmail, isValidPassword } from "../../../Shared/Utilities";
 import {
   gettingProfilePic,
   loginData,
   registerData,
 } from "../../../Redux/Actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import ForgetPassword from "../../Atoms/ForgetPassword";
@@ -18,16 +18,18 @@ import PasswordInput from "../PasswordInput";
 
 export default function LoginInputs() {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
+  const profileData = useSelector(state => state.saveUserDataReducer)
+  console.log(profileData,"profileData")
+  const [email, setEmail] = useState(profileData?.email);
 
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(profileData?.password);
   const [validationMessageEmail, setValidationMessageEmail] = useState();
   const [validationMessagePassword, setValidationMessagePassword] = useState();
   const [inputType, setInputType] = useState("password");
   const navigate = useNavigate();
 
   const successLogin = () => {
-    // dispatch(gettingProfilePic({}))
+    dispatch(gettingProfilePic({}))
     navigate("/");
   };
   const failedLogin = (res) => {
@@ -48,8 +50,8 @@ export default function LoginInputs() {
       dispatch(
         loginData?.signin(
           { email: email, password: password },
-          successLogin,
-          failedLogin
+            successLogin,
+            failedLogin
         )
       );
     }
@@ -83,7 +85,7 @@ export default function LoginInputs() {
         <label className="validationMessage">{validationMessagePassword}</label>
       </div>
       <ForgetPassword />
-      <ContinueButton handleSubmit={handleSubmit} />
+      <Button handleSubmit={handleSubmit} />
     </>
   );
 }

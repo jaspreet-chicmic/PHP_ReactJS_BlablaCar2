@@ -19,8 +19,8 @@ export default function PathTo({
           <img
             className="publishRideImg"
             src={Images?.additionIcon}
-            alt=""
-          ></img>
+            alt="additionIcon"
+          />
         )}
         <div className="publishRideText">{linkText}</div>
       </div>

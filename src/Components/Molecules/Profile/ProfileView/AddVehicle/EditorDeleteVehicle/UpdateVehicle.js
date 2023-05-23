@@ -5,7 +5,7 @@ import {
   VALIDATION_MESSAGES,
 } from "../../../../../../Shared/Constants";
 import CustomInput from "../../../../../Atoms/CustomInput";
-import ContinueButton from "../../../../../Atoms/ContinueButton";
+import Button from "../../../../../Atoms/Button";
 import ValidationText from "../../../../../Atoms/ValidationText";
 
 import { useDispatch } from "react-redux";
@@ -161,7 +161,7 @@ export default function UpdateVehicles({
           />
           <ValidationText message={vehicleModelYearValidationMessage} />
         </div>
-        <ContinueButton ButtonText="Update" handleSubmit={handleSubmit} />
+        <Button ButtonText="Update" handleSubmit={handleSubmit} />
       </ModalComponent>
     </div>
   );

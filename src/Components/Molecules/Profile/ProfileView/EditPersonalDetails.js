@@ -3,7 +3,7 @@ import ModalComponent from "../../../Cells/Modal";
 import Header from "../../../Atoms/Header";
 import "../styles.css";
 import CustomInput from "../../../Atoms/CustomInput";
-import ContinueButton from "../../../Atoms/ContinueButton";
+import Button from "../../../Atoms/Button";
 import {
   PLACEHOLDERS,
   VALIDATION_MESSAGES,
@@ -145,7 +145,7 @@ export default function EditPersonalDetails({ show, setShow = () => { } }) {
         />
         <ValidationText message={emailValidationMessage} />
       </div>
-      <ContinueButton ButtonText="Update" handleSubmit={() => handleSubmit()} />
+      <Button ButtonText="Update" handleSubmit={() => handleSubmit()} />
     </ModalComponent>
   );
 }

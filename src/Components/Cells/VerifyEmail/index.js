@@ -1,6 +1,6 @@
 import React from "react";
 import ModalComponent from "../Modal";
-import ContinueButton from "../../Atoms/ContinueButton";
+import Button from "../../Atoms/Button";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { sendEmailVerificationstatus } from "../../../Redux/Actions";
@@ -21,7 +21,7 @@ export default function VerifyEmail() {
   return (
     <ModalComponent show={true}>
       <div className="Container">
-        <ContinueButton ButtonText="Verify" handleSubmit={handleSubmit} />
+        <Button ButtonText="Verify" handleSubmit={handleSubmit} />
       </div>
     </ModalComponent>
   );

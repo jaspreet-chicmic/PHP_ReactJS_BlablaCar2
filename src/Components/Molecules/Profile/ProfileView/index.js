@@ -5,7 +5,7 @@ import "../styles.css";
 import PathTo from "../../../Atoms/PathTo";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getVehicleData } from "../../../../Redux/Actions";
+import { getVehicleData, gettingProfilePic } from "../../../../Redux/Actions";
 
 export default function NameAndProfilePicView({
   setShowEditPersonalDetails = () => {},
@@ -15,8 +15,8 @@ export default function NameAndProfilePicView({
   const userData = JSON.parse(localStorage.getItem("CurrentUser"));
   const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(gettingProfilePic({}))
-    // dispatch(getVehicleData({}))
+    dispatch(gettingProfilePic({}))
+    dispatch(getVehicleData({}))
   }, []);
   const StoreData = useSelector((state) => state);
 

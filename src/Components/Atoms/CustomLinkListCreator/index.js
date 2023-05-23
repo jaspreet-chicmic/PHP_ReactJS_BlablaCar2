@@ -17,9 +17,9 @@ export default function CustomLinkListCreator({
   pic = false,
   route,
   linkText,
-  setDropDownListShow = () => {},
-  setDropDownIconPosition = () => {},
-  handleSelect = () => {},
+  setDropDownListShow = () => { },
+  setDropDownIconPosition = () => { },
+  handleSelect = () => { },
   profilePic,
 }) {
   const dispatch = useDispatch();
@@ -67,12 +67,12 @@ export default function CustomLinkListCreator({
                 <img
                   className="profilePic"
                   src={profilePic || Images.profile}
-                  alt=""
+                  alt="profilePic"
                 />
               </div>
             )}
             <span className="linkIcon">
-              <img src={Images.rightArrow} alt=""></img>
+              <img src={Images.rightArrow} alt="rightArrow" />
             </span>
           </Link>
         </li>

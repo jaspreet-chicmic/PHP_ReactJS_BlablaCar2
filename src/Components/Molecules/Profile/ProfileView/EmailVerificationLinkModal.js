@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ModalComponent from "../../../Cells/Modal";
 import Header from "../../../Atoms/Header";
 import { STRINGS } from "../../../../Shared/Constants";
-import ContinueButton from "../../../Atoms/ContinueButton";
+import Button from "../../../Atoms/Button";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { sendEmailVerificationLink } from "../../../../Redux/Actions";
@@ -35,7 +35,7 @@ export default function EmailVerificationLinkModal({
       <ModalComponent show={show} setShow={setShow}>
         <Header heading={STRINGS?.VERIFY_EMAIL} />
         <label>{statusMessage}</label>
-        <ContinueButton ButtonText={"Verify"} handleSubmit={handleSubmit} />
+        <Button ButtonText={"Verify"} handleSubmit={handleSubmit} />
       </ModalComponent>
     </div>
   );

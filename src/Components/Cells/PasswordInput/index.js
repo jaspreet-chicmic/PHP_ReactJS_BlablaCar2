@@ -3,7 +3,7 @@ import Header from "../../Atoms/Header";
 import "./styles.css";
 import CustomInput from "../../Atoms/CustomInput";
 import { useNavigate } from "react-router-dom";
-import ContinueButton from "../../Atoms/ContinueButton";
+import Button from "../../Atoms/Button";
 import { STRINGS, VALIDATION_MESSAGES } from "../../../Shared/Constants";
 import { isValidPassword } from "../../../Shared/Utilities";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,7 +60,7 @@ export default function PasswordInput() {
         setInputType={setInputType}
       />
       <label className="validationMessage">{validationMessage}</label>
-      <ContinueButton handleSubmit={handleSubmit} />
+      <Button handleSubmit={handleSubmit} />
     </div>
   );
 }

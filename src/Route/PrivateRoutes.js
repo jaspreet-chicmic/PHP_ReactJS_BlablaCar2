@@ -10,7 +10,7 @@ export const PRIVATE_ROUTES = [
     path: "/dashboard/profile/menu",
     component: <Profile />,
   },
- 
+
   {
     path: "/dashboard/profile/picture",
     component: <AddOrEditProfilePic />,
@@ -24,7 +24,7 @@ export const PRIVATE_ROUTES = [
     component: <AddVehicleDetails />,
   },
   {
-    path:"/account_activations/:id/edit",
+    path: "/account_activations/:id/edit",
     component: <VerifyEmail />,
-  }
+  },
 ];

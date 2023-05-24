@@ -1,17 +1,11 @@
 import { ACTION_STATES } from "../ActionStates";
 
-
-
 export const profilePicReducer = (state = "", action) => {
-    switch (action?.type) {
-        case ACTION_STATES.SAVE_PROFILE_PIC:
-            return (
+  switch (action?.type) {
+    case ACTION_STATES.SAVE_PROFILE_PIC:
+      return action?.payload;
 
-                state=action?.payload
-            )
-            
-        default:
-            return state;
-    }
-}
-
+    default:
+      return state;
+  }
+};

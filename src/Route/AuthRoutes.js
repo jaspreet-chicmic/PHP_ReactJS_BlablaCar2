@@ -9,56 +9,45 @@ import ResetPassword from "../Components/Cells/ResetPassword";
 import Login from "../View/Login";
 import Register from "../View/Register";
 
-
 export const AUTH_ROUTES = [
   {
     path: "/login",
-    component: <Login/>,
-    
+    component: <Login />,
   },
   {
     path: "/register",
     component: <Register />,
-    
   },
   {
     path: "/register/email",
     component: <EmailInput />,
-    
   },
   {
     path: "/register/name",
     component: <NameInput />,
-    
   },
   {
     path: "/register/birthDate",
     component: <BirthDateInput />,
-    
   },
   {
     path: "/register/gender",
     component: <NamePrefixSelector />,
-    
   },
   {
     path: "/register/password",
     component: <PasswordInput />,
-    
   },
   {
     path: "/login/email",
     component: <LoginInputs />,
-    
   },
   {
     path: "/login/forgot",
     component: <LoginForgetPassword />,
-    
   },
   {
     path: "/users/password/edit",
-    component: <ResetPassword  />,
-    
+    component: <ResetPassword />,
   },
 ];

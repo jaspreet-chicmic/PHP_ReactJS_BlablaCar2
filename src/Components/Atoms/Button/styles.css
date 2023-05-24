@@ -15,7 +15,7 @@
   display: inline-flex;
   padding: 0px 24px;
   border: 1px solid transparent;
-  border-radius: 9999px;
+  /* border-radius: 9999px; */
   font-style: normal;
   font-variant: normal;
   font-kerning: auto;
